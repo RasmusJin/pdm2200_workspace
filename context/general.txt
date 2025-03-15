@@ -1,0 +1,3178 @@
+DOC-RO2200-006-ROV
+Issue 1.0
+9 Jan 2024
+
+PDM Development
+Power/Discrete Mainframe
+General Principle of Operation
+
+Prepared by
+Adam Kiss
+Hardware Engineer
+
+Checked by
+Reviewer
+Position
+Unauthorised distribution, dissemination or disclosure not allowed
+
+© Rovsing A/S 2024
+The copyright in this document is vested in Rovsing A/S.
+
+www.rovsing.dk
+
+Ejby Industrivej 34-38
+
+Phone:
+
+Fax:
+
+VAT No.:
+
+info@rovsing.dk
+
+DK-2600 Glostrup
+
++45 44 200 800
+
++45 44 200 801
+
+DK-16 13 90 84
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 2 of 46
+
+9 Jan 2024
+
+Document attributes
+Customer
+Rovsing AS
+File name
+
+DDD-RO2200-003-ROV_1.0_General principle of operations.docx
+
+Document change log
+Issue
+
+Date
+
+Modified sections
+
+1.0
+
+09.01.2024
+
+All
+
+Industrial
+
+Description of change
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 3 of 46
+
+9 Jan 2024
+
+Table of contents
+1
+
+INTRODUCTION ...............................................................................................................6
+1.1
+
+2
+
+3
+
+4
+
+Purpose and scope .......................................................................................................... 6
+
+DOCUMENTS AND DEFINITIONS ....................................................................................7
+2.1
+
+Applicable Documents .................................................................................................... 7
+
+2.2
+
+Reference Documents .................................................................................................... 7
+
+2.3
+
+Normative Documents .................................................................................................... 7
+
+2.4
+
+Acronyms and abbreviations ......................................................................................... 8
+
+PHYSICAL DESCRIPTION / COMPONENTS ......................................................................9
+3.1
+
+Description of the system............................................................................................... 9
+
+3.2
+
+RO-124001 - Backplane ................................................................................................... 9
+3.2.1
+
+Front Facing Connectors ................................................................................. 10
+
+3.2.2
+
+Power Connectors............................................................................................ 10
+
+3.2.3
+
+Card identification ........................................................................................... 11
+
+FUNCTIONAL OVERVIEW...............................................................................................12
+4.1
+
+UART connection ........................................................................................................... 12
+
+4.2
+
+SPI connection ................................................................................................................ 12
+
+4.3
+
+I2C connection ............................................................................................................... 13
+
+4.4
+
+PIO connection ............................................................................................................... 13
+
+4.5
+
+Ethernet Interface .......................................................................................................... 13
+
+4.6
+
+Safety Link Matrix .......................................................................................................... 14
+
+4.7
+
+User Interface Control................................................................................................... 14
+
+4.8
+
+Daughter card – MCU .................................................................................................... 14
+
+4.9
+
+Daughter card – Circular buffer ................................................................................... 14
+
+4.10 Daughter card – SPI flash ............................................................................................. 14
+4.11 Daughter card – SD card ............................................................................................... 15
+4.12 Daughter card – Card specific circuitry ....................................................................... 15
+4.13 Programmed logic – High level software .................................................................... 15
+4.14 Programmed logic – Firmware..................................................................................... 16
+4.15 Programmed logic – Embedded SW............................................................................ 16
+5
+
+DETAILED FUNCTIONAL DESCRIPTION ........................................................................17
+5.1
+
+5.2
+
+Industrial
+
+Daughter Brain Card (DBC) .......................................................................................... 17
+5.1.1
+
+Circular buffer .................................................................................................. 17
+
+5.1.2
+
+Code flashing .................................................................................................... 18
+
+5.1.3
+
+Future improvements...................................................................................... 18
+
+Individual UART Connections ....................................................................................... 19
+5.2.1
+
+Normal Mode Operation ................................................................................. 19
+
+5.2.2
+
+Measurement and trigger operation ............................................................ 19
+
+© Rovsing 2024
+
+PDM Development
+
+5.3
+
+5.4
+
+5.5
+
+Issue 1.0
+
+Page 4 of 46
+
+9 Jan 2024
+
+Shared SPI connection .................................................................................................. 22
+5.3.1
+
+Card select scheme .......................................................................................... 22
+
+5.3.2
+
+Chip select scheme .......................................................................................... 23
+
+EEPROM .......................................................................................................................... 25
+5.4.1
+
+Memory address overview ............................................................................. 26
+
+5.4.2
+
+Card identification pages ................................................................................ 27
+
+5.4.3
+
+Channel calibration pages .............................................................................. 29
+
+5.4.4
+
+Thermal Control pages .................................................................................... 30
+
+Safety link system .......................................................................................................... 31
+5.5.1
+
+Safety link propagation – Daughter cards .................................................... 33
+
+5.5.2
+
+Safety link matrix ............................................................................................. 34
+
+5.6
+
+Thermal control system ................................................................................................ 36
+
+5.7
+
+Shared I2C Connection ................................................................................................. 38
+5.7.1
+
+6
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Address domain scheme ................................................................................ 38
+
+USE-CASE SCENARIOS ....................................................................................................40
+6.1
+
+SLP30 PDM for SAS racks.............................................................................................. 40
+
+Table of tables
+Table 2-1: List of Applicable Documents ........................................................................................ 7
+Table 2-2: List of Reference Documents ........................................................................................ 7
+Table 2-3: List of Normative Documents ........................................................................................ 7
+Table 3-1: PCB-s contained in PDM ................................................................................................. 9
+Table 5-1: Common pin associations for DBC ............................................................................. 17
+Table 5-2: Information flow logical architecture ......................................................................... 21
+Table 5-3: SPI pin table on DCB connector .................................................................................. 22
+Table 5-4: Example 1 for Chip Select Scheme ............................................................................. 24
+Table 5-5: Example 2 for Chip Select Scheme ............................................................................. 24
+Table 5-6: Example 3 for Chip Select Scheme ............................................................................. 24
+Table 5-7: Memory address allocation overview ........................................................................ 26
+Table 5-8: Card Info page 1 structure ........................................................................................... 27
+Table 5-9: Card Info page 2 structure ........................................................................................... 28
+Table 5-10: Calibration Address Book page structure ................................................................ 29
+Table 5-11: Channel Calibration page structure ......................................................................... 30
+Table 5-12: Thermal Control Header page structure ................................................................. 30
+Table 5-13: Thermal Preferences page structure ....................................................................... 31
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 5 of 46
+
+9 Jan 2024
+
+Table 5-14: “Mixing Down” table from inputs to nodes ............................................................. 33
+Table 5-15: “Mixing Up” table from Nodes to Outputs ............................................................... 34
+Table 5-16: Safety link matrix example control table ................................................................. 35
+Table 5-17: I2C pin table on DCB connector ................................................................................ 38
+Table 6-1: PDM example 1 equipment list ................................................................................... 40
+
+Table of figures
+Figure 3-1: CAD rendering of the PDM ........................................................................................... 9
+Figure 3-2: Illustration of backplane ............................................................................................. 10
+Figure 3-3: Card identification ....................................................................................................... 11
+Figure 4-1: Illustration of system architecture ............................................................................ 12
+Figure 5-1: DBC outline and dimensions ...................................................................................... 18
+Figure 5-2: Card and Chip select scheme ..................................................................................... 23
+Figure 5-3: Special status byte flags .............................................................................................. 27
+Figure 5-4: Safety link architecture of PDM ................................................................................. 32
+Figure 5-5: Error propagation using safety link nodes ............................................................... 33
+Figure 5-6: Safety link matrix architecture ................................................................................... 34
+Figure 5-7: Thermal control system operation ............................................................................ 36
+Figure 5-8: Thermal control system architecture ........................................................................ 37
+Figure 5-9: Address domain illustration ....................................................................................... 39
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+1
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 6 of 46
+
+9 Jan 2024
+
+INTRODUCTION
+
+1.1
+
+Purpose and scope
+
+This document contains the principle of operation for the Power-Discrete Mainframe (PDM)
+platform. Details, such as card identification, addressing scheme or intended error
+handling scenarios are detailed in this document.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+2
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 7 of 46
+
+9 Jan 2024
+
+DOCUMENTS AND DEFINITIONS
+
+The following sections list the applicable, reference and normative documents that relate
+to this document. These are set out as follows:
+Applicable documents: Documents provided by the customer which form the basis of
+the present document, i.e. the present document explains how the Rovsing design,
+implementation and/or processes respond to the requirements established through the
+applicable documents.
+Reference documents: Documents delivered by Rovsing, and which are referred to in
+the present document.
+Normative documents: Regulations, laws, or industry standards applicable to the
+Rovsing delivery and relevant to the present document.
+
+2.1
+
+Applicable Documents
+
+Reference Document Reference
+[ICD-004]
+[ICD-001]
+[ICD-003]
+
+ICD-RO2200-004-ROV
+ICD-RO2200-001-ROV
+ICD-RO2200-003-ROV
+
+Issue Document Title
+1.0
+1.0
+
+1.0
+
+SLP30 Command and response table
+UART Protocol Interface Description
+Controller Software Interface Document
+
+Table 2-1: List of Applicable Documents
+
+2.2
+
+Reference Documents
+
+Reference Document Reference
+
+Issue Document Title
+
+[DDD-002]
+
+DDD-RO2200-002-ROV
+
+1.0
+
+Software Design Document
+
+[DDD-001]
+
+DOC-RO2200-001-ROV
+
+1.0
+
+Firmware Design Document
+
+[DDD-004]
+
+DDD-RO2200-004-ROV
+
+1.0
+
+Embedded Software Design Document
+
+[TMP-001]
+
+TMP-RO2200-001-ROV
+
+1.0
+
+Daughter card ICD templates
+
+Table 2-2: List of Reference Documents
+
+2.3
+
+Normative Documents
+
+Reference Document Reference
+
+Issue Document Title
+
+Table 2-3: List of Normative Documents
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+2.4
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 8 of 46
+
+9 Jan 2024
+
+Acronyms and abbreviations
+
+To be generated later
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+3
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 9 of 46
+
+9 Jan 2024
+
+PHYSICAL DESCRIPTION / COMPONENTS
+
+3.1
+
+Description of the system
+
+Figure 3-1: CAD rendering of the PDM.
+List of PCB-s in the assembly is contained in Table 3-1.
+PCB name
+
+PCB ROV number
+
+Quantity installed Abbreviation
+
+Backplane
+Controller Card
+
+RO-124001
+RO-124002
+
+1
+1
+
+BPB
+CCB
+
+User Interface – Control Unit
+
+RO-124900
+
+1
+
+UI-CU
+
+Arbitrary Daughter Card
+
+RO-XXXXXX
+
+16 (max)
+
+DCB
+
+Table 3-1: PCB-s contained in PDM.
+
+3.2
+
+RO-124001 - Backplane
+
+The backplane is distributing power to the different DCB-s and controller card. Beyond this
+responsibility, is also contains the conductors to facilitate the communication between
+DCB-s and CCB. The card carries 16 Daughter card connectors and one Controller card
+connector.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 10 of 46
+
+9 Jan 2024
+
+Figure 3-2: Illustration of backplane.
+The backplane does not contain programmed intelligence, but it does provide some GPIO
+extenders to drive indicator LED-s for user interactions.
+
+3.2.1
+
+Front Facing Connectors
+
+The backplane also contains “Front Facing Connectors” (FFC), one per Daughter card slot.
+The purpose of the FFC-s is to provide a direct attachment point for wiring to the individual
+daughter cards. The pins in the Front Facing connectors are directly connected to the
+DIN96 Daughter card connectors. This results in the FCC-s pinout not being defined, until a
+DCB is populated into the corresponding slot.
+
+3.2.2
+
+Power Connectors
+
+The Backplane is the entry point for power towards the daughter cards. Power enters the
+backplane through two dedicated connectors from a low-profile Flex ATX power supply.
+The backplane distributes 3.3V, 5V, 12V. Power cycling the PDM happens through the
+“POWER-ON” pin in the ATX-PSU’s power connector.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+3.2.3
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 11 of 46
+
+9 Jan 2024
+
+Card identification
+
+In the PDM system, each card slot has a hard coded, pre-configured address (Slot-ID). This
+address is identical to the card-slot’s location, numbered 0-15 from the left side of the unit
+(observed from behind). The slot ID is encoded as 4 bit binary through the daughter card’s
+DIN96 backplane connector.
+
+Slot 15
+Slot 0
+Figure 3-3: Card identification.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+4
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 12 of 46
+
+9 Jan 2024
+
+FUNCTIONAL OVERVIEW
+
+The specific functions of the PDM are provided by the individually installed daughter cards,
+which are commanded by a controller card. The controller card houses a Marz ZX3 System
+on a Module from Enclustra. This device is responsible for running the controller software
+for the mainframe. Beyond hosting the controller software, the SoM handles ethernet
+communication, platform wide control of daughter cards and individual communication
+with each DCB.
+Each Daughter card hosts its individual MCU, running code responsible for executing the
+real-time local tasks of the specific daughter card. Communication between the daughter
+card MCUs (Daughter Card Brains - DBC) and controller card (CCB) is carried out through
+individual hardware flow control enabled UART lines to each daughter card.
+Beyond the individual UART lines, the system is equipped with a shared SPI bus. The
+Master of the bus is the CCB, with the intent of giving the controller direct access to some
+hardware resources on the daughter cards, like EEPROMS, GPIO expanders ADCs/DACs or
+Thermistors.
+
+Figure 4-1: Illustration of system architecture.
+
+4.1
+
+UART connection
+
+Each Daughter card has its own dedicated UART line, complete with hardware flow control
+signalling (RTS, CTS). The UART is running 921600 baud rate, with 8bit characters. The UART
+protocol is detailed in [IDC-001].
+
+4.2
+
+SPI connection
+
+The SPI connection between the CCB and the daughter cards is intended to serve a
+“support” role to the primary UART communication channel. The CCB can through the SPI
+connection read supplementary information from an EEPROM chip located on each
+daughter card.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 13 of 46
+
+9 Jan 2024
+
+The SPI bus is directly involved in temperature regulation of the platform, by allowing direct
+temperature readouts from thermistors located next to hotspots on Daughter cards. These
+thermistor readouts are done by the CCB without any intervention from the DBC.
+Beyond this, it is foreseen, that the SPI connection together with GPIO extenders DAC-s or
+ADC-s can be useful to directly control aspects of Daughter Card operation from the CCB.
+A more detailed explanation can be found at section 5.3.
+
+4.3
+
+I2C connection
+
+The backplane provides two independent I2C lines shared between daughter cards. Odd
+indexed daughter card slots connect to I2C-1 while Even indexed DCB slots are connected
+to I2C-2. It is expected, that each I2C accessible daughter card has an I2C address space
+identical to the DCB slot addresses 3 MSB bytes. Subdivision of I2C addresses is achieved
+through I2C multiplexing at each individual DCB.
+A more detailed explanation can be found in section 5.7.
+
+4.4
+
+PIO connection
+
+The backplane provides 16 independent, shared lines called PIO-s (Parallel Input-output).
+At present, the function of these lines is not decided, they are kept as placeholder for
+future functionality. In prototype revisions of the PDM system, PIO-s were using to
+synchronise timing between I2C connected cards or to trigger actions of “passive” cards.
+
+4.5
+
+Ethernet Interface
+
+The PDM provides ethernet connectivity to the Mars ZX3 by means of the Mars on board
+Ethernet Phy (KSZ9031RN) and a standard CAT6 ethernet port on the controller card. The
+purpose of the ethernet connection is to establish a channel of communication between
+the Rovsing Controller Software (RCS) and the Power/Discrete Mainframe (PDM). Through
+this connection, the RCS commands the individual daughter cards and retrieves
+housekeeping and measurement data.
+The PDM system is intended to be deployed together with other, already existing Rovsing
+products (SAS, SLP130, MASC). This makes it necessary, that the ethernet interface towards
+the Rovsing Controller software is compatible with currently existing software designs.
+A more detailed explanation of command tables and protocol considerations can be found
+in [ICD-003].
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+4.6
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 14 of 46
+
+9 Jan 2024
+
+Safety Link Matrix
+
+The PDM has two distinct safety link systems. One internal and one external. The safety link
+matrix is meant to establish a connection between different systems.
+The safety link matrix can connect with two independent, external safety link sources
+through hardware placed on the controller card. The propagation of safety link events is
+handled through a discrete logic interface controlled through I2C from the Mars ZX3 SoM
+module. Propagation of safety link events can be enabled or disabled in either channel on
+either direction from software. The safety link functionality is available and fully operation
+without direct software intervention or supervision.
+A more detailed explanation about the platform wide safety link system can be found in
+section 5.5.
+
+4.7
+
+User Interface Control
+
+The PDM exposes an I2C line through the rear connector of the Controller Card. This I2C is
+intended to be used for user interface control. (7Segment display, extra buttons, LED-s).
+User interaction elements are intended to be driven/read through I2C capable display
+drivers and GPIO expanders.
+At present, no designs exist for UI hardware, thus detailed description of operation is TBD.
+
+4.8
+
+Daughter card – MCU
+
+Each Daughter card in the PDM system is intended to have an MCU connected to the
+controller card. These MCU-s are housed on “Daughter Brain Cards” (DBC) which sit in
+SoDIMM-200 card sockets. The DBC is detachable from the daughter card, making it easier
+to replace the MCU in case of supply shortages or obsolescence.
+All real time activities, such as measurement timing, peripheral interactions, and possible
+control loops are done through the daughter card MCU-s. This consideration enables the
+controller software to have lax timing requirements towards daughter cards.
+A more detailed explanation of roles and responsibilities of the DBC can be found in
+section 5.1.
+
+4.9
+
+Daughter card – Circular buffer
+
+It is expected that the “Daughter Card Brain” is capable of continuously capturing on one
+channel at a measurement rate of 100 KSPS and writing the data to a circular buffer.
+A more detailed explanation can be found in section 5.1.1.
+
+4.10
+
+Daughter card – SPI flash
+
+Each daughter card houses an SPI EEPROM chip, which is accessible through the system
+wire shared SPI bus. (Section 4.2). The EEPROM will always be placed on a dedicated chip
+select line (CSB_4, DIN96 Pin b9). A more detailed explanation about the chip select scheme
+can be found in section 5.3.
+The EEPROM is intended to contain card identification information, calibration information
+and additional housekeeping information. The contents of this memory device will be
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 15 of 46
+
+9 Jan 2024
+
+accessed at startup. The EEPROM is write protected by a physical jumper pin, thus
+changing the memory contents is not possible during normal operation.
+A more detailed explanation about EEPROM contents can be found in section 5.4.
+
+4.11
+
+Daughter card – SD card
+
+Each DBC device hosts an SD card socket. The exact functionality of the SD card is TBD.
+Initial ideas include:
+• Error log and reporting
+• Embedded code update
+
+4.12
+
+Daughter card – Card specific circuitry
+
+Each type of daughter card contains some application specific/function specific circuitry. It
+is not possible to collect all current and future cards in this document. To avoid
+misunderstandings, only general design concepts for daughter cards will be listed.
+It is foreseen, that each daughter card will contain a Daughter Brain Card (DBC) and some
+card specific circuitry, under the control of the DBC. The CCB will not be able to directly
+address card specific circuitry, the daughter card is specifically designed to not contain a
+DBC. In this case, the CC can take control over the application specific circuitry, using the
+shared SPI bus (Section 4.2) or shared I2C buses (Section 4.3).
+More information about daughter card specific circuitry can be found in daughter card
+design documents or schematics.
+
+4.13
+
+Programmed logic – High level software
+
+The Mars ZX3 SoM device is responsible for running a Linux based “High level” software,
+which is responsible for the following functions:
+• Facilitating communication between the Rovsing Controller Software and the PDM
+• Facilitating daughter card discovery at startup
+• Handling UI interface functions
+• Providing housekeeping information on PDM system
+• TBD
+More information on the high-level software can be found in [DDD-002].
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+4.14
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 16 of 46
+
+9 Jan 2024
+
+Programmed logic – Firmware
+
+The Mars ZX3 SoM device contains a Xilinx Zynq 7000 series FPGA. It is the task of this
+device to facilitate communication between daughter card UART connections and highlevel software. The firmware is also expected to facilitate thermal control of the platform by
+means of acquiring individual temperature readings from the daughter cards through the
+shared SPI bus (Section 4.2) and setting cooling fan speeds accordingly.
+The firmware design can handle communication with 16 cards without major impact to
+housekeeping, thermal control or user interaction services.
+The design of the firmware is generic to the largest allowable extent, to enable connecting
+future cards to the system without any modification to the FPGA fabric. Future cards are
+foreseen to contain a DBC and use the Rovsing defined UART protocol specified in [ICD001].
+More information on the high-level software can be found in [DDD-001].
+
+4.15
+
+Programmed logic – Embedded SW
+
+The Daughter Brain Card houses an MCU, which runs daughter card specific embedded
+code, to connect the Controller Card UART connections to the card specific analog
+interfaces of the daughter cards. Even though the DBC does not change across daughter
+cards, the flashed embedded software differs.
+The embedded software sections can be split into two categories:
+• Shared across platform.
+• Card specific
+To help code reuse, tested and self-contained code modules have been separated out into
+GIT repositories, making them reuseable as submodules. When embedded code needs to
+be generated for a new daughter card, code submodules can be imported into a template
+project, then linked together.
+The design mentality of the embedded code emphasizes modularity more than
+performance or execution speed.
+Example
+A Daughter Card’s example code consists of a state machine, an ADC driver, a DAC driver,
+an SPI bus driver and a Command Line interface.
+Shared code:
+
+ADC driver, DAC driver, SPI bus driver, Command line interface (framework)
+
+Card specific code:
+
+State Machine, Command line interface (commands)
+
+More information can be found on the embedded software in [DDD-004].
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+5
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 17 of 46
+
+9 Jan 2024
+
+DETAILED FUNCTIONAL DESCRIPTION
+
+5.1
+
+Daughter Brain Card (DBC)
+
+The daughter brain card (DBC) is a SoDIMM200 DDR2 form factor module, which hosts the
+following major HW components:
+• STM32F412VGT6
+
+MCU
+
+• APS6404L-3SQR-SN
+
+SPI PSRAM
+
+• Micro SD card socket
+Besides these major components, the module contains all passive parts which are required
+for the operation of the MCU.
+The design choice to make the MCU system independent from the rest of the daughter
+cards enables a significant cost reduction when considering modernisation and
+replacement of programmed logic components in the future.
+Since most daughter cards share some functionalities, pins corresponding to these
+functions are “locked in”, meaning they have a fix designated position on the SoDIMM
+connector. The following functionalities are locked:
+• PPS pulse reception
+• Internal safety link Node1 and Node2
+• Command UART, including hardware flow control.
+• Debug UART
+• Power OK (No effect, pulled high)
+Table 5-1 contains association between connectors and a description for each shared pin in
+the DBC design.
+Name
+
+Schematics name
+
+SoDIMM Pin
+
+MCU Pin
+
+PPS Normal
+
+PPS.0
+
+46
+
+A0
+
+PPS Spare
+Command UART TX
+
+PPS.1
+GPIO_TX
+
+70
+133
+
+B2
+A15
+
+Command UART RX
+
+GPIO_RX
+
+135
+
+A10
+
+Command UART CTS
+
+GPIO_B
+
+141
+
+A11
+
+Command UART RTS
+Debug UART TX
+
+GPIO_A
+-
+
+139
+36
+
+A12
+A2
+
+Debug UART RX
+
+-
+
+34
+
+A3
+
+Power OK
+
+POWER_BUS.POWER_GOOD 13
+
+-
+
+Table 5-1: Common pin associations for DBC
+
+5.1.1
+
+Circular buffer
+
+In case a daughter card needs to collect data at speeds greater than the practical
+transmission capacity of the dedicated daughter card UART connection, an approach can
+be chosen where data is written into a circular buffer located on the DBC. Upon a predefined trigger event, the contents of the individual circular buffers are “dumped” through
+the UART connection to the Controller card.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 18 of 46
+
+9 Jan 2024
+
+The dump can be later used to generate data structures like “single shot oscilloscope”
+captures. In case no trigger event is captured before the circular buffer fills up, the oldest
+data is overwritten in a continuous manner.
+The trigger events are configurable from UART commands, and the data dump is
+forwarded to the CCB according to the response scheme documented in [ICD-001].
+
+5.1.2
+
+Code flashing
+
+Code flashing for the DBC happens through an ST-Link V2.0 device. The flasher connects
+through a landing pattern for TC2030-IDC-NL cable from Tag-Connect. The DBC-s are
+intended to be flashed with embedded software specific to their host daughter card. The
+flashing happens before the DBC is mated to its host.
+
+5.1.3
+
+Future improvements
+
+The DBC is designed in a way, that it enables quick replacement of the MCU, should a more
+powerful device be required. The recommended replacement MCU for the
+STM32F412VGT6 is:
+• STM32H730VBT6
+Board revision is needed to make the recommended replacement MCU functional.
+
+Figure 5-1: DBC outline and dimensions.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+5.2
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 19 of 46
+
+9 Jan 2024
+
+Individual UART Connections
+
+Each daughter card connects to the controller card via a dedicated, hardware flow control
+enabled UART line. The UART lines support a point to point “Rovsing Protocol”. The Rovsing
+protocol is a “push” system in terms of information, meaning that the daughter card MCU-s
+decide when to send information to the controller card. The controller card is responsible
+for processing and storing the information.
+A more detailed explanation of the Rovsing Protocol can be found in [ICD-001].
+Two operational modes are distinguished for the UART interfaces:
+
+5.2.1
+
+Normal Mode Operation
+
+In normal operation, the operator is inputting new settings on the MMI (Overcurrent,
+Overvoltage, Temperature target for simulation, Relay close-open, etc…). After
+“confirmation” for the commands have been provided, the controller software will send the
+command over to the PDM via ethernet. (We refer to these commands ad PDMCommands)
+The PDM needs to determine which command belongs to which daughter card, then issue
+the appropriate UART command to the target card, conveying the action from the PDMCommand. (Commands between the Controller card and daughter cards we refer to as DCCommands). After reception of the DC-Commands, the receiving MCU will enact the
+required actions to fulfil the command. (Open a relay, change DAC settings, etc…)
+The Rovsing Controller software is a pull-based system in terms of information transfer.
+When information needs to be displayed on the MMI, the Rovsing controller software will
+request information from the PDM, then show the received information to the MMI.
+This means that for reoccurring measurements with a need for fixed period the system
+cannot rely on the Rovsing Controller software for timing accuracy. For this reason, when
+any type of measurement is to be collected, the MCU on the specific card needs to be
+supplied with a command, which triggers a measurement on an ADC/Digital IO. The
+triggered measurement can be one or a reoccurring measurement at fixed intervals. The
+MCU sends the result to the controller card via UART. (we refer to these messages as UARTResponses).
+The controller card saves these UART-Responses representing measurements in a memory
+location (channel UART socket), corresponding to the given daughter card which provided
+the measurement. When a new UART-Response comes in containing measurement data
+from a channel, earlier measurement data corresponding to the specific channel is
+overwritten in the storage location.
+Whenever a PDM-Command arrives, requesting housekeeping measurement data, the
+contents of the specific measurement channel memory location is passed to the Rovsing
+controller software, regardless of how long it has been standing in the Controller Card
+memory.
+Normal mode operation on the UART is expected to be by far the most common mode of
+operation.
+
+5.2.2
+
+Measurement and trigger operation
+
+In some cases, the operator might not want to forward each individual measurement from
+a measurement channel to the single channel UART socket. Instead, it is preferred to save
+consecutive measurements into a circular buffer attached to the DBC MCU.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 20 of 46
+
+9 Jan 2024
+
+The contents of the circular buffer become relevant, once a trigger condition is met. Once a
+pre-programmed trigger event happens (OVP threshold violation, OCP threshold violation,
+etc…) the contents of the circular buffer become available for “dumping”.
+The dump does not happen automatically once a trigger condition is met. Daughter cards
+having a dump ready notify the controller card, which in turn can issue a “begin dump”
+command.
+The first UART-response of a data dump is a “dump begin” message, while the last UART
+response is a “Dump complete”. This way the data dump is delimited on both ends, making
+processing of the information easier.
+In the worst case, the circular buffer contains 100k samples of data. To dump this
+information through the UART to the controller card, all other communication needs to be
+paused on the DCB->CCB UART line for the specific card doing the dump. This is done to
+simplify data sorting on the controller card side. The data dump is segmented up into
+individual messages of TBD length. While data is dumped from one card, communication to
+all other cards is expected to work without any impact from the dump.
+Once the data dumping is finished, the affected daughter card returns to normal operating
+mode, and it requires a “trigger reset” command from the controller card before a new
+trigger event + data dump cycle.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 21 of 46
+
+9 Jan 2024
+
+Table 5-2: Information flow logical architecture
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+5.3
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 22 of 46
+
+9 Jan 2024
+
+Shared SPI connection
+
+The chapter contains detailed description of the shared SPI connection through the
+backplane. Each Daughter card connects to be backplane through a DIN96 connector,
+where the location of the SPI related pins are as follows:
+Function
+
+DIN96 pin DC
+
+Schematics Pin Identifier
+
+SCLK
+
+A12
+
+SPI.SCLK
+
+MISO
+MOSI
+
+C12
+B11
+
+SPI.MISO
+SPI.MOSI
+
+Chip Select EEPROM
+
+B9
+
+SPI.CSB4
+
+Chip Select 1
+Chip Select 2
+
+C9
+B10
+
+SPI.CSB5
+SPI.CSB6
+
+Chip Select 4
+
+C10
+
+SPI.CSB7
+
+Card Select 0
+
+B6
+
+SPI.CSB0
+
+Card Select 1
+Card Select 2
+
+C6
+B7
+
+SPI.CSB1
+SPI.CSB2
+
+Card Select 3
+
+C7
+
+SPI.CSB3
+
+Table 5-3: SPI pin table on DCB connector
+Since 8 chip select signals need to be managed on 16 independent boards, an encoding is
+necessary on the chip select signals. The 8 dedicated GPIO ports to the shared SPI port are
+broken up into 3 categories:
+• Card select pins
+• Chip select pins
+• EEPROM select pin
+Each daughter card is equipped with a discrete decoding circuit, which only propagates
+Chip select signals, when the card select address matches the slot address of the daughter
+card.
+
+5.3.1
+
+Card select scheme
+
+The four “Card Select” bits combine out a card address, which is then compared on each
+daughter card in a local discrete circuit to the card’s slot address.
+In case the “card select” address on the card select pins matches the slot address on one of
+the daughter cards, all the “chip select” signals become available on that daughter card
+only. If the “card select” address does not match the daughter card’s slot address, the chip
+select signals remain inactive for that specific card.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+5.3.2
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 23 of 46
+
+9 Jan 2024
+
+Chip select scheme
+
+There are 4 lines on the backplane dedicated for chip select signals. Three of these lines
+are used to encode 8 individual chip select signals. The individual chip selects from the
+binary encoded 3 lines are obtained on the daughter cards, using a multiplexer IC.
+The last remaining line of the four chip select lines is solely dedicated to the daughter card
+EEPROM, containing card information and calibration data.
+The general structure as described is depicted on Figure 5-2.
+
+Figure 5-2: Card and Chip select scheme.
+
+Example:
+The below example shows how the chip select and card select bits are interpreted in three
+different situations on two distinct daughter cards. Device level chip select signals are
+assumed active low, while system level chip selects and card selects are active high.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 24 of 46
+
+9 Jan 2024
+
+Chip
+Chip
+Chip
+Chip
+Card
+Card
+Card
+Card
+Select
+Select 1 Select 2 Select 3 Select 0 Select 1 Select 2 Select 3
+EEPROM
+Backplane
+signals
+
+1
+
+0
+
+1
+
+0
+
+0
+
+Daughter EEPROM EEPROM active, high-Z
+card
+Selected output from Multipelxer
+signals
+(SLOT 02)
+
+0
+
+1
+
+0
+
+Card Selected
+
+Daughter Card
+Card NOT selected
+card
+NOT
+signals
+selected
+(SLOT 03)
+
+Card NOT selected
+
+Table 5-4: Example 1 for Chip Select Scheme
+Chip
+Chip
+Chip
+Chip
+Card
+Card
+Card
+Card
+Select
+Select 1 Select 2 Select 3 Select 0 Select 1 Select 2 Select 3
+EEPROM
+Backplane
+signals
+
+0
+
+0
+
+1
+
+0
+
+0
+
+Daughter EEPROM Multiplexer selects CS-1
+card
+NOT
+(Bx010)
+signals
+Selected
+(SLOT 02)
+
+0
+
+1
+
+0
+
+Card Selected
+
+Daughter Card
+Card NOT selected
+card
+NOT
+signals
+selected
+(SLOT 03)
+
+Card NOT selected
+
+Table 5-5: Example 2 for Chip Select Scheme
+Chip
+Chip
+Chip
+Chip
+Card
+Card
+Card
+Card
+Select
+Select 1 Select 2 Select 3 Select 0 Select 1 Select 2 Select 3
+EEPROM
+Backplane
+0
+0
+1
+0
+signals
+Daughter Card
+Card NOT selected
+card
+NOT
+signals
+selected
+(SLOT 02)
+Daughter Card
+Multiplexer selects CS-1
+card
+NOT
+(Bx010)
+signals
+selected
+(SLOT 03)
+
+0
+
+0
+
+1
+
+1
+
+Card NOT selected
+
+Card Selected
+
+Table 5-6: Example 3 for Chip Select Scheme
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+5.4
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 25 of 46
+
+9 Jan 2024
+
+EEPROM
+
+Each daughter card contains an EEPROM chip, connected to the SPI bus and CS_3 coming
+from the backplane. The EEPROM is NV25020, manufactured by ON-Semi. It is organised
+into 256-8byte pages.
+Throughout the definition of EEPROM contents, logically coherent sections of data are
+organised into pages of data, denoted by a single memory address.
+The EEPROM contains information about:
+• Card type, revision and embedded SW version
+• Calibration data, specific to the card
+• Thermal control preferences
+The MCU of the daughter cards does not have access to the EEPROM. The contents of the
+EEPROM are updated at factory acceptance test of the daughter card, then write protected
+by means of placing a jumper.
+A collection of pre-defined memory pages can be found in this chapter. Unused memory
+pages are free to be allocated for future use-cases, on the condition of updating this
+document.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+5.4.1
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 26 of 46
+
+9 Jan 2024
+
+Memory address overview
+
+Page Name
+
+Memory address (Hex)
+
+Card Info 0
+
+TBD
+
+Card Info 2
+Thermal Control Header
+
+TBD
+TBD
+
+Thermal Preferences 0
+
+TBD
+
+Thermal Preferences 1
+
+TBD
+
+Calibration Address Book 0
+Calibration Address Book 1
+
+TBD
+TBD
+
+Calibration Address Book 2
+
+TBD
+
+Calibration Address Book 3
+
+TBD
+
+Channel Calibration 0
+Channel Calibration 1
+
+TBD
+TBD
+
+Channel Calibration 2
+
+TBD
+
+Channel Calibration 3
+
+TBD
+
+Channel Calibration 4
+Channel Calibration 5
+
+TBD
+TBD
+
+Channel Calibration 6
+
+TBD
+
+Channel Calibration 7
+Channel Calibration 8
+
+TBD
+TBD
+
+Channel Calibration 9
+
+TBD
+
+Channel Calibration 10
+
+TBD
+
+Channel Calibration 11
+Channel Calibration 12
+
+TBD
+TBD
+
+Channel Calibration 13
+
+TBD
+
+Channel Calibration 14
+
+TBD
+
+Channel Calibration 15
+Channel Calibration 16
+
+TBD
+TBD
+
+Channel Calibration 17
+
+TBD
+
+Channel Calibration 18
+
+TBD
+
+Channel Calibration 19
+Channel Calibration 20
+
+TBD
+TBD
+
+Channel Calibration 21
+
+TBD
+
+Channel Calibration 22
+
+TBD
+
+Channel Calibration 23
+Channel Calibration 24
+
+TBD
+TBD
+
+Channel Calibration 25
+
+TBD
+
+Channel Calibration 26
+Channel Calibration 27
+
+TBD
+TBD
+
+Channel Calibration 28
+
+TBD
+
+Channel Calibration 29
+
+TBD
+
+Channel Calibration 30
+Channel Calibration 31
+
+TBD
+TBD
+
+Remark
+
+Table 5-7: Memory address allocation overview
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+5.4.2
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 27 of 46
+
+9 Jan 2024
+
+Card identification pages
+
+Page Name: Card Info 0
+EEPROM Memory Address:
+
+TBD
+
+Content description: Card identification table, containing the most relevant information to
+uniquely identify any single card.
+Name
+
+Size
+
+Description
+
+CardType
+
+8 bit
+
+A single integer is attributed to each card type, then
+stored in the EEPROM for card type identification. A
+list of card types and corresponding ID-s can be found
+under [TMP-001]
+
+Revision
+
+8 bit
+
+Revision letter, coded as ASCII
+
+BOMID
+
+8 bit
+
+BOM Identifier, interpreted as integer
+
+SerialNumMSB
+SerialNumLSB
+
+8 bit
+8 bit
+
+Board serial number most significant byte
+Board serial number least significant byte
+
+SpecialStatus
+
+8 bit
+
+CalibYear
+
+8 bit
+
+8 flags indicating different conditions which apply to
+the board.
+Year of calibration, counting from 2000 as 0x00.
+
+CalibMonth
+
+8 bit
+
+Month of calibration, 0x00 as January, 0x12 as
+December
+
+Table 5-8: Card Info page 1 structure
+Special status register:
+The special status register contains 8 flags. The function of these 8 flags is to signal, if the
+specific board requires different handling from another type of more “ordinary” daughter
+card.
+Special status flags are not fully defined now.
+Flag Bit
+7 (MSB)
+
+Significance
+TBD
+
+6
+
+TBD
+
+5
+4
+
+TBD
+TBD
+
+3
+
+TBD
+
+2
+
+TBD
+
+1
+0 (LSB)
+
+TBD
+TBD
+Figure 5-3: Special status byte flags.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 28 of 46
+
+9 Jan 2024
+
+Page Name: Card Info 1
+EEPROM Memory Address:
+
+TBD
+
+Content description: Card identification table, containing supplementary information to
+uniquely identify any single card.
+Name
+
+Size
+
+Description
+
+HCO
+TBD
+
+8 bit
+8 bit
+
+The ID Number of the applied HCO
+TBD
+
+TBD
+
+8 bit
+
+TBD
+
+TBD
+
+8 bit
+
+TBD
+
+TBD
+TBD
+
+8 bit
+8 bit
+
+TBD
+TBD
+
+TBD
+
+8 bit
+
+TBD
+
+TBD
+
+8 bit
+
+TBD
+
+Table 5-9: Card Info page 2 structure
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+5.4.3
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 29 of 46
+
+9 Jan 2024
+
+Channel calibration pages
+
+Each AD or DA channel which is interfaced towards customer equipment needs to be
+calibrated. A set of calibration values for AD or DA device channels consists of a “Scaler”
+and an “Offset”. In general, digitally stored values get related to real world voltages (or
+currents the following way):
+(𝐴𝐷𝐶𝐶𝑜𝑢𝑛𝑡 + 𝐴𝐷𝐶𝑜𝑓𝑓𝑠𝑒𝑡 ) ∙ 𝐺𝐶𝑜𝑟𝑟𝑒𝑐𝑡𝑖𝑜𝑛
+∙ 𝑆𝑠𝑐𝑎𝑙𝑖𝑛𝑔 = 𝑉𝑀𝑒𝑎𝑠𝑢𝑟𝑒𝑑
+𝐴𝐷𝐶𝐹𝑢𝑙𝑙𝐻𝑜𝑢𝑠𝑒
+𝐺𝐶𝑜𝑟𝑟𝑒𝑐𝑡𝑖𝑜𝑛 gain correction, meant to improve ADC/DAC accuracy and 𝑆𝑠𝑐𝑎𝑙𝑖𝑛𝑔 , containing the
+scaling from external resistor networks can be stored together as a single floating-point
+number. 𝐴𝐷𝐶𝑜𝑓𝑓𝑠𝑒𝑡 requires its own variable, storing offset values from the ADC itself or
+external circuitry. This distribution takes 2 bytes for storing 𝐴𝐷𝐶𝑜𝑓𝑓𝑠𝑒𝑡 and 4 bytes storing
+𝑆𝑠𝑐𝑎𝑙𝑖𝑛𝑔 ∙ 𝐺𝐶𝑜𝑟𝑟𝑒𝑐𝑡𝑖𝑜𝑛 . All calibration values belonging to a single AD or DA channel are stored
+on their own 8byte page in the EEPROM.
+All calibrated channels have a “calibration page”. Memory addresses of the calibration
+pages are collected on four separate pages, making it possible to store calibration values
+for 32 AD or DA channels per daughter card. Each calibration memory address which
+points to 0x00 is considered “channel calibration not in use”.
+Page Name: Calibration Address Book 0-3
+EEPROM Memory Address:
+
+TBD
+
+Content description: One of four tables containing memory page addresses for calibration
+tables. Each 8bit memory address contains the calibration page for one AD or DA interface
+channel. The remaining 3 tables look identical, except they correspond to channels 8-15,
+16-23, 24-31 respectively.
+Name
+
+Size
+
+Description
+
+ChCalib0
+ChCalib 1
+
+8 bit
+8 bit
+
+Calibration page memory address in EEPROM
+Calibration page memory address in EEPROM
+
+ChCalib2
+
+8 bit
+
+Calibration page memory address in EEPROM
+
+ChCalib3
+
+8 bit
+
+Calibration page memory address in EEPROM
+
+ChCalib4
+ChCalib5
+
+8 bit
+8 bit
+
+Calibration page memory address in EEPROM
+Calibration page memory address in EEPROM
+
+ChCalib6
+
+8 bit
+
+Calibration page memory address in EEPROM
+
+ChCalib7
+
+8 bit
+
+Calibration page memory address in EEPROM
+
+Table 5-10: Calibration Address Book page structure
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 30 of 46
+
+9 Jan 2024
+
+Page Name: Channel Calibration 0-31
+EEPROM Memory Address:
+
+TBD
+
+Content description: Calibration values corresponding to a single DA or AD channel. Please
+note, that “ScalingFactor” is a floating-point number, which is first interpreted as a float by
+the embedded Linux of the controller card. The information derived from the AD-s or sent
+to the DA-s is communicated as integer AD/DA ticks by the embedded Linux.
+
+Name
+
+Size
+
+Description
+
+ChannelTypeIdentifier
+
+8 bit
+
+DNC
+
+8 bit
+
+Identifies types of analog interfaces in need of
+calibration. A list of analog interfaces can be found
+under TBD.
+Do not care field
+
+OffsetMSB
+
+8 bit
+
+𝐴𝐷𝐶𝑜𝑓𝑓𝑠𝑒𝑡 most significant Byte, stored as integer ADC
+count
+
+OffsetLSB
+
+8 bit
+
+𝐴𝐷𝐶𝑜𝑓𝑓𝑠𝑒𝑡 least significant Byte, stored as integer ADC
+count
+
+Scaler3
+
+8 bit
+
+𝑆𝑠𝑐𝑎𝑙𝑖𝑛𝑔 ∙ 𝐺𝐶𝑜𝑟𝑟𝑒𝑐𝑡𝑖𝑜𝑛 most significant byte
+
+Scaler2
+
+8 bit
+
+𝑆𝑠𝑐𝑎𝑙𝑖𝑛𝑔 ∙ 𝐺𝐶𝑜𝑟𝑟𝑒𝑐𝑡𝑖𝑜𝑛 byte 2
+
+Scaler1
+
+8 bit
+
+𝑆𝑠𝑐𝑎𝑙𝑖𝑛𝑔 ∙ 𝐺𝐶𝑜𝑟𝑟𝑒𝑐𝑡𝑖𝑜𝑛 byte 1
+
+Scaler0
+
+8 bit
+
+𝑆𝑠𝑐𝑎𝑙𝑖𝑛𝑔 ∙ 𝐺𝐶𝑜𝑟𝑟𝑒𝑐𝑡𝑖𝑜𝑛 least significant byte
+
+Table 5-11: Channel Calibration page structure
+
+5.4.4
+
+Thermal Control pages
+
+Page Name: Thermal Control Header
+EEPROM Memory Address:
+
+TBD
+
+Content description: Header information for temperature regulation fan control.
+Name
+ChipSelectMask
+
+Size
+8 bit
+
+Description
+A mask of SPI chip select bits on a card, taken by
+temperature sensors
+
+DriverID
+
+8 bit
+
+TempCoefficients03
+
+8 bit
+
+TempCoefficients47
+
+8 bit
+
+Driver ID, to specify the temperature sensor
+populated onto the board. A list of thermistors and
+corresponding ID-s can be found under TBD.
+Memory address of the temperature coefficients in
+EEPROM
+Memory address of the temperature coefficients in
+EEPROM
+
+DNC
+DNC
+
+8 bit
+8 bit
+
+Do not care
+Do not care
+
+DNC
+
+8 bit
+
+Do not care
+
+DNC
+
+8 bit
+
+Do not care
+
+DNC
+
+8 bit
+
+Do not care
+
+Table 5-12: Thermal Control Header page structure
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 31 of 46
+
+9 Jan 2024
+
+Page Name: Thermal Preferences 0
+EEPROM Memory Address:
+
+TBD
+
+Content description: Thermal coefficients to calculate temperature range for fan control.
+(0x00: -40DegC, 0xFF: 214DegC)
+Name
+
+Size
+
+Description
+
+LowTemp0
+
+8 bit
+
+Temperature below which fan is to idle
+
+HighTemp0
+
+8 bit
+
+Temperature above which fan is to drive 100%
+
+LowTemp1
+HighTemp1
+
+8 bit
+8 bit
+
+Temperature below which fan is to idle
+Temperature above which fan is to drive 100%
+
+LowTemp2
+
+8 bit
+
+Temperature below which fan is to idle
+
+HighTemp2
+
+8 bit
+
+Temperature above which fan is to drive 100%
+
+LowTemp3
+HighTemp3
+
+8 bit
+8 bit
+
+Temperature below which fan is to idle
+Temperature above which fan is to drive 100%
+
+Table 5-13: Thermal Preferences page structure 0
+Page Name: Thermal Preferences 1
+EEPROM Memory Address:
+
+TBD
+
+Content description: Thermal coefficients to calculate temperature range for fan control.
+(0x00: -40DegC, 0xFF: 214DegC)
+Name
+
+Size
+
+Description
+
+LowTemp4
+HighTemp4
+
+8 bit
+8 bit
+
+Temperature below which fan is to idle
+Temperature above which fan is to drive 100%
+
+LowTemp5
+
+8 bit
+
+Temperature below which fan is to idle
+
+HighTemp5
+LowTemp6
+
+8 bit
+8 bit
+
+Temperature above which fan is to drive 100%
+Temperature below which fan is to idle
+
+HighTemp6
+
+8 bit
+
+Temperature above which fan is to drive 100%
+
+LowTemp7
+
+8 bit
+
+Temperature below which fan is to idle
+
+HighTemp7
+
+8 bit
+
+Temperature above which fan is to drive 100%
+
+Table 5-14: Thermal Preferences page structure 1
+
+5.5
+
+Safety link system
+
+The Power Discrete Mainframe offers internal safety link functionality to installed daughter
+cards by means of two independent, shared, open collector lines on the backplane (Node 1
+and Node 2). Nodes are 5V open collector signals, where a safety link event indication is
+signified by the line having a low voltage (below 0.8V).
+SL Nodes are not expected to stay in low state during an error. Each connection to the
+safety link nodes is done through “one-shot” circuits to prevent deadlock states between
+different equipment trying to drive the safety link nodes. Since the error states “disappear”
+from the common safety link node lines, “incoming” error states are latched by D-flops on
+each daughter card and in the safety link matrix. This way, investigation of a full system
+state including safety link propagation chains is possible after all the devices connected to
+the backplane has been put to a safe state.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 32 of 46
+
+9 Jan 2024
+
+Each daughter card is hooked up to each “Safety Link Node”. Each daughter card has an
+internal safety link event propagation table, which determines what action to take in case
+one of the safety nodes signals a failure. The same table also determines which safety link
+events shall be propagated to which node. Propagation tables are stored and configured
+by the Controller Card, and written to DCB-s upon system startup.
+This system allows maximum flexibility of safety link networks, while still providing domain
+isolation and simple configurability.
+
+Figure 5-4: Safety link architecture of PDM
+It is intended, that the PDM system is expandable with more external safety link
+interconnects through “Safety link cards”. Each of these cards has a safety link matrix like
+the CCB safety link matrix. The PDM external safety link connections are backwards
+compatible with more mature Rovsing designs, such as the SLP10, SLP130, SAS and MASC
+systems.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+5.5.1
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 33 of 46
+
+9 Jan 2024
+
+Safety link propagation – Daughter cards
+
+Figure 5-5: Error propagation using safety link nodes
+Figure 5-5 illustrates the error propagation between cards. The backplane sits between two daughter cards and facilitates the connection between
+Nodes. Highlighted in red are the components involved in propagating and latching the safety link status within a daughter card. Each DBC-MCU can
+investigate the full safety link state of the card it is situated on.
+Expunging latched error states also happens through the DBC-MCU-s.
+Input
+Output
+
+SL_1 Ext
+
+SL_2 Ext
+
+SL Button
+
+HWWD
+
+FPGA1
+
+FPGA2
+
+Node 1
+
+CTRL.0
+
+CTRL.2
+
+CTRL.4
+
+CTRL.6
+
+Perm. Conn
+
+Not Connected
+
+Node 2
+
+CTRL.1
+
+CTRL.3
+
+CTRL.5
+
+CTRL.7
+
+Not Connected
+
+Perm. Conn
+
+Table 5-15: “Mixing Down” table from inputs to nodes
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+Issue 1.0
+
+Page 34 of 46
+
+9 Jan 2024
+
+Node 1
+
+Node 2
+
+Int. SL 0
+
+Perm. Conn
+
+Not Connected
+
+Int. SL 1
+
+Not Connected
+
+Perm. Conn
+
+Ext. SL1
+
+CTRL.10
+
+CTRL.8
+
+Ext. SL2
+
+CTRL.11
+
+CTRL.9
+
+Output
+
+Input
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Table 5-16: “Mixing Up” table from Nodes to Outputs
+
+5.5.2
+
+Safety link matrix
+
+Figure 5-6: Safety link matrix architecture
+The PDM-s safety link architecture includes at least a single safety link matrix, located on
+the CCB. The purpose of a safety link matrix is to selectively propagate and interconnect
+different safety event signals. The interconnections are enabled or disabled from software,
+using a dedicated GPIO expander IC connected through I2C.
+The safety link matrix (SLM) propagates signals through discrete logic components, and as
+such does not need software intervention or monitoring to its function. The basic operating
+principles of the CCB safety link matrix is as follows:
+• Inputs are buffered by asynchronous D-Flops
+• Inputs are “mixed down” with a 6 to 2 selector to two nodes (active low)
+• The two nodes are fed through one shot circuits before propagating on
+• The one shot filtered nodes are “mixed up” to a 2 to 4 selector matrix
+To visualize the available control signals, two tables are provided. Table 5-15 contains
+control signals for 6 to 2 “mixing down”. Table 5-16 contains control signals for 2 to 4
+“mixing up”.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 35 of 46
+
+9 Jan 2024
+
+Example:
+An user has the following safety link propagation requirements:
+“Safety link shall trigger all external and internal devices, in case the hardware watchdog or
+external event signals an error. At the same time, only certain daughter cards shall be triggered
+in case the safety link button is pushed. Events which are results of button pushes should not
+propagate to external devices, but if daughter cards signal a safety link event, all external devices
+shall be triggered.”
+The requirements can be satisfied with the following design:
+• Daughter-cards which are to be triggered by the button push shall trigger on rising
+edges on Node 1(“listen” to Node 1). This setting needs to be propagated to the DBC
+of target daughter cards.
+• Button events shall be propagated to Node 1
+• Hardware watchdog events shall be propagated to Node 1 and 2
+• External events shall be propagated to Node 1 and 2
+• All daughter cards shall signal safety link events on Node 2 (“talk” to Node 2).
+• Node 2 shall be propagated to external safety link 1 and 2.
+This results in the following control matrix:
+Status
+CTRL.0
+CTRL.1
+
+High (Ext SL 1 to Node 1)
+High (Ext SL 1 to Node 2)
+
+CTRL.2
+
+High (Ext SL 2 to Node 1)
+
+CTRL.3
+
+High (Ext SL 2 to Node 2)
+
+CTRL.4
+CTRL.5
+
+High (SL Btn. To Node 1)
+Low (SL Btn. block on Node 2)
+
+CTRL.6
+
+High (HWWD to Node 1)
+
+CTRL.7
+CTRL.8
+
+High (HWWD to Node 2)
+High (Node 2 to Ext SL 1)
+
+CTRL.9
+
+High (Node 2 to Ext SL 2)
+
+CTRL.10
+
+Low (Node 1 block on Ext SL 1)
+
+CTRL.11
+CTRL.R0
+
+Low (Node 1 block on Ext SL 2)
+Do Not Care
+
+CTRL.R1
+
+Do Not Care
+
+CTRL.R2
+
+Do Not Care
+
+CTRL.R3
+
+Do Not Care
+
+Table 5-17: Safety link matrix example control table
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+5.6
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 36 of 46
+
+9 Jan 2024
+
+Thermal control system
+
+The PDM is equipped with an active cooling system, following the front-to-back cooling
+scheme. A single fan is supplying cooling air to all the cards through the backplane.
+
+Figure 5-7: Thermal control system operation
+The cooling fan is a type 9GA0812P4H001 from Sanyo Danki, offering access to a tachometer and a PWM control for speed regulation. Required fan speed is calculated based on
+temperature sensors placed at hotspots and at the exhaust on daughter cards.
+Temperature sensors which are part of the thermal control system are read out directly by
+the CCB through the shared SPI line (Section 4.2).
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 37 of 46
+
+9 Jan 2024
+
+Figure 5-8: Thermal control system architecture
+To determine system fan-speed based on individual temperature measurements, the
+following numbers need to be recorded on a card-by-card basis:
+• Minimum temperature at which the fan speed should surpass idle (Low-temp)
+• Temperature at which fan speed should be maximal (High-temp)
+The Chip-select position of temperature sensors also need to be specified for each type of
+card. These pieces of information are logged in the EEPROM, as indicated in section 5.4.
+The cooling control loop functions the following way:
+• Upon startup:
+o Collect information from EEPROM-s
+o Register temperature sensors for reoccurring measurements
+• During normal operation:
+o Measure temperatures for each registered temperature sensors
+o Calculate prospective fan-speeds for each temperature measurement
+o Find highest prospective fan-speed
+o Set fan-speed to match highest prospective fan-speed
+• Repeat these steps in each measurement cycle.
+The high-temp and low-temp coefficients for each card are found during the development
+cycle of the given card and it is written to the EEPROM during the card’s calibration/factory
+acceptance testing.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+5.7
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 38 of 46
+
+9 Jan 2024
+
+Shared I2C Connection
+
+The chapter contains detailed description of the shared I2C connection through the
+backplane. Each Daughter card connects to be backplane through a DIN96 connector,
+where the location of the I2C related pins are as follows:
+Function
+
+DIN96 pin DC
+
+I2C 0 SCL
+
+B13
+
+Schematics Pin
+Identifier
+I2C.SCL0
+
+I2C 0 SDA
+
+C13
+
+I2C.SDA0
+
+I2C 1 SCL
+I2C 1 SDA
+
+B14
+C14
+
+I2C.SCL1
+I2C.SDA1
+
+Table 5-18: I2C pin table on DCB connector
+Since address space limitations would seriously complicate version controlling boards, a
+method is chosen, where the I2C address space is divided into domains. One domain is
+limited to one card. While an address space domain is in use, other domains are detached
+from the shared bus.
+This approach trades communication speed for modularity and address tracking simplicity.
+
+5.7.1
+
+Address domain scheme
+
+As shown on Figure 5-9, a card can be equipped with an I2C Multiplexer device. This device
+beyond multiplexing the one incoming I2C lines to multiple outgoing lines can also connect
+or disconnect from the shared bus. Ince an address domain is selected using an I2C
+multiplexer, the devices within that domain can be addressed normally through the shared
+bus.
+In case switching to a different domain is necessary, the I2C multiplexer of the active
+domain needs to be instructed to break the connection between the shared bus and the
+domain, after which a new domains I2C multiplexer needs to be instructed to establish
+connection.
+This approach also makes it possible to keep I2C addresses of identical devices identical
+across cards. The I2C address of the multiplexer selecting or deselecting a domain can be
+configured by the 3 MSB if the card-slot, in which its host PCB is populated.
+Card slots are divided onto two independent I2C lines. One for Odd slots, one for even
+ones.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 39 of 46
+
+9 Jan 2024
+
+Figure 5-9: Address domain illustration
+The I2C connection of the PDM is meant as a supplementary means of communication.
+Currently, there are no daughter cards which would be compatible with the latest
+backplane revision and I2C based commanding.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+6
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 40 of 46
+
+9 Jan 2024
+
+USE-CASE SCENARIOS
+
+In this chapter, some use-cases are collected, to provide a more in-depth overviews of
+normal and extraordinary operational circumstances. In each use-case scenario, the PDM
+composition (daughter card set, rack type) is specified, then a short overview of expected
+user requirements is provided. This is followed by analysis of expected system
+performance.
+Some of the daughter cards stipulated in this chapter are not designed yet. Modes of
+operation and performance parameters for these cards are assumed. Assumptions will be
+highlighted through out the analysis.
+
+6.1
+
+PDM for SAS racks
+
+A SAS rack mostly consists of SAS and SLP devices with an addition of occasional discrete
+signal interfaces. It mostly is meant to simulate solar array wings for spacecrafts during AIT
+activities.
+Board/Equipment
+RO-124001 - Backplane
+
+Quantity
+1
+
+Remark
+Revision D0
+
+RO-124002 - ControllerCard
+
+1
+
+Revision B0
+
+RO-124007 – SLP30
+
+8
+
+Revision C0
+
+RO-124013 – Therm. Sim.
+ATX Power Supply
+
+1
+1
+
+Not in existence yet, Revision B0 foreseen
+COTS
+
+Mechanical enclosure
+
+1
+
+With segmented front panel
+
+Table 6-1: PDM example 1 equipment list
+A PDM is foreseen to be installed in a SAS subrack, providing 8 channels of second level
+protection to eight SAS units. External SL connections are established between individual
+SLP-s and SAS-es.
+It is requested, that a failing channel does not shut the entire system down, but the
+pressing of a safety link button will disable the entire system.
+The customer also requested 6 channels of thermistor simulation, to provide simulated
+feedback on solar array temperatures.
+Individual current ,voltage and system status housekeeping measurements are expected
+twice a second from all eight SAS-SLP-s. It is expected, that the operators would want to
+change current and voltage threshold settings through out the test campaign.
+Thermistor simulation settings are expected to change once every 10 minutes, with the
+Thermistor simulation card providing system status housekeeping information once a
+second.
+In some cases, when the satellite trips the SLP protection, the operators want to get current
+and voltage measurements from the tripping SLP-s at 10ksps sampling rate, in the ±1
+second vicinity of the SLP tripping.
+Once a safety link event happens on either one card or the entire system, an investigation
+routine runs and reads the latched safety link status registers, to provide “initiating
+condition” information in connection with the tripping.
+No other functionality is foreseen for the PDM in this case.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+6.1.1
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 41 of 46
+
+9 Jan 2024
+
+General system considerations
+
+Space constraints:
+The system detailed above is a common configuration Rovsing delivers to customers. In the
+case of the PDM system, all 8 SLP30 modules fit inside a single mainframe, occupying 3U
+rack space. With SAS modules arranged above and below, the entire section takes 9U rackspace. Beyond this, the same PDM device which houses the SLP30 modules can house a
+single Thermistor simulation card,, making it unnecessary to add a MASC module.
+In Rovsing’s “old” product portfolio, two, 3U SLP subrack and a 3U MASC subrack would be
+necessary to fulfil these requirements. The PDM compresses the required rack-space from
+15U to 9U.
+Safety Link:
+In a RO-5100 (SAS) RO-1010 (SLP10) pairing, external safety link chains are needed between
+SLP10 devices and the rest of the rack subsystems.
+In the case of using a mainframe, every card inserted into the mainframe already has the
+necessary safety link connections for each daughter cards, making the setup more
+configurable. In the case described in this example, the safety link setup for all SLP30
+daughter cards are, according to section 5.5:
+• Listen on Node 1
+• Talk on Node 2
+The setup for the controller card safety link matrix:
+• SL Button and HWWD connected to Node 1
+• Neither Node is forwarded to any external SL interfaces
+• Other external SL interfaces not propagated to Node1 or Node 2
+SLP30 Measurement setup:
+The SLP30 cards need to be set up the following way:
+• A command must instruct the SLP30 to set OVP thresholds and grace times, where it
+applies. One command needs to be sent for every threshold value. This command
+needs to be sent every time a threshold change is needed.
+• A command must instruct the SLP30 to set OCP thresholds and grace times, where it
+applies. One command needs to be sent for every threshold value. This command
+needs to be sent every time a threshold change is needed.
+• A command must instruct the SLP30 to take ADC measurement of current and
+voltage at 10kHz, forwarding every 10000th sample to the controller card. This
+command needs to be sent every time the SLP device is “enabled”.
+• A command must instruct the SLP30 to consider safety link events a trigger, and keep
+acquisition going for 1s after a trigger. This command needs to be sent every time
+the SLP device is “enabled”.
+• A command must instruct the SLP30 to wait for triggers, enabling data dumping
+upon trigger event. This command needs to be sent every time the SLP device is
+“enabled”.
+• A command must instruct the SLP30 to close galvanic isolation relays. This command
+needs to be sent every time the SLP device is “enabled”.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 42 of 46
+
+9 Jan 2024
+
+• A command must instruct the SLP30 to reset error latches. This command will set the
+semiconductor switches to conduction mode. This command needs to be sent every
+time the SLP device is “enabled”.
+At this point, the SLP30 is conducting and collecting measurements.
+If a trigger is registered, the SLP30 sends an UART response to the controller card, notifying
+it about the trigger, but does not start the data dump. For the data dump to be extracted
+from the SLP30:
+• A command must instruct the SLP30 to begin data dumping. This command needs to
+be sent once per data dump.
+• The data dump will commence. The last UART-response of the data dump is a dump
+complete message.
+If the operator wishes to re-enable the system after a trigger event, command steps from
+the setup need to be repeated. The embedded Linux on the PDM might enable the
+operator to direct the operation of the SLP30 with fewer commands issued from the MMI
+than here described.
+Thermistor simulation:
+The thermistor simulation board is providing fully floating simulated thermistor channels,
+command able from the MMI. Each channel can be individually commanded to a preprogrammed set of temperatures.
+No direct feedback is available from individual channel’s outputs, beyond the commanded
+value from the DBC MCU on the thermistor simulation card.
+It is foreseen, that one simulation card will be able to support 12 thermistor simulations, at
+least 4 bit resolution each.
+The thermistor simulation card does not generate or react to Safety link events on Node 1
+or Node 2.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+6.2
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 43 of 46
+
+9 Jan 2024
+
+PDM for UMB racks
+
+A UMB rack is expected to keep the satellite powered and monitored before launch, after
+AIT activities have commenced. It mostly contains monitoring interfaces like BSM channels,
+analog measurement channels and some power supplies, fitted with SLP modules.
+Board/Equipment
+
+Quantity
+
+Remark
+
+RO-124001 - Backplane
+
+1
+
+Revision D0
+
+RO-124002 - ControllerCard
+RO-124007 – SLP30
+
+1
+2
+
+Revision B0
+Revision C0
+
+RO-124012 – BiLevel
+
+1
+
+Not in existence yet, Revision B0 foreseen
+
+RO-124009 – AD card
+RO-124014 – Safety link card
+
+1
+1
+
+Not in existence yet, Revision B0 foreseen
+Not in existence yet, Revision B0 foreseen
+
+ATX Power Supply
+
+1
+
+COTS
+
+Mechanical enclosure
+
+1
+
+With segmented front panel
+
+Table 6-2: PDM example 2 equipment list
+A PDM is foreseen to be installed in an UMB subrack, providing two channels of second
+level protection to two EA-power supply units for main bus supply. Foreseen currents are
+25A for each, with an expected voltage of 50V.
+It is requested, that the UMB rack receives a safety link connection from an external
+source, when used during AIT activities.
+EA power supplies have a safety link connection to a safety link card on the PDM. If an OC
+safety link event happens on either the SLP-s or the power supplies, the event must not
+propagate to other power supplies or SLP-s. If an external safety link event is triggered, all
+SLP-s and Power supplies need to be triggered.
+It is requested, that the safety link provides housekeeping measurements with a 2Hz
+frequency.
+In case either SLP device detects an overvoltage condition, a system wide safety link event
+needs to be initiated.
+The customer also requested 4 channels of analog voltage measurements in the 0-50V
+range for battery voltage and main bus monitoring.
+The UMB rack is expected to monitor 12 strap line during launch operations.
+Measurements need to be updated once a second.
+No other functionality is foreseen for the PDM in this case.
+
+6.2.1
+
+General system considerations
+
+Space constraints:
+The system detailed above is a common configuration Rovsing delivers to customers. In the
+case of the PDM system, two SLP30 modules fit inside a single mainframe, occupying 3U
+rack space, with EA-power supplies arranged below. Beyond this, the same PDM device
+which houses the SLP30 modules can house the AD card, Bi-level card and Safety link card.
+In Rovsing’s “old” product portfolio, one, 3U SLP subrack and a 3U MASC subrack would be
+necessary to fulfil these requirements. The PDM compresses the required rack-space from
+6U to 3U.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 44 of 46
+
+9 Jan 2024
+
+Safety Link:
+The SLP30 modules are not connected to external safety link sources, but they have a
+connection to internal, PDM safety link nodes. The SLP30 cards need to be configured to
+forward OVP events to Node1 internal safety link. Beyond this, both SLPs need to “listen”
+on Node1. The Controller card safety link needs to be configured to link rack external
+safety link to Node1 and forward Node1 safety link events to rack external.
+Beyond the connections in the controller card safety link matrix, the SL card’s safety link
+matrix is configured to forward SL events from Node1 to both its connections (EA-Power
+supplies). The safety link card does not forward safety link events from the EA supplies to
+any internal node.
+SLP30 Measurement setup:
+The SLP30 cards need to be set up the following way:
+• A command must instruct the SLP30 to set OVP thresholds and grace times, where it
+applies. One command needs to be sent for every threshold value. This command
+needs to be sent every time a threshold change is needed.
+• A command must instruct the SLP30 to set OCP thresholds and grace times, where it
+applies. One command needs to be sent for every threshold value. This command
+needs to be sent every time a threshold change is needed.
+• A command must instruct the SLP30 to take ADC measurement of current and
+voltage at 2Hz, forwarding every sample to the controller card. This command needs
+to be sent every time the SLP device is “enabled”.
+• A command must instruct the SLP30 to close galvanic isolation relays. This command
+needs to be sent every time the SLP device is “enabled”.
+• A command must instruct the SLP30 to reset error latches. This command will set the
+semiconductor switches to conduction mode. This command needs to be sent every
+time the SLP device is “enabled”.
+At this point, the SLP30 is conducting and collecting measurements.
+If the operator wishes to re-enable the system after a trigger event, command steps from
+the setup need to be repeated. The embedded Linux on the PDM might enable the
+operator to direct the operation of the SLP30 with fewer commands issued from the MMI
+than here described.
+AD card
+The AD card is providing fully floating AD measurements on 6 channels per card, with a
+10MΩ input impedance. Measurement collection setup works similarly to SLP30 cards. A
+sampling rate for the ADC-s must be set. In the same command, the operator needs to
+prescribe how many measurements to save locally and how many to forward to the
+controller card.
+The AD cards also have an “oscilloscope shot” feature, but the customer did not request it
+in this example case.
+The AD cards need to be hardware configured to be able to support a wide range of input
+voltages. AD cards can also be configured to trigger safety link Nodes based on analog
+threshold detectors. This functionality is also not used in this example case.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 45 of 46
+
+9 Jan 2024
+
+BiLevel card
+BiLevel cards are monitoring at least 16 BSM channels each. The card can time-stamp any
+signal change on any line in the following manner:
+• A shared change detector circuit is monitoring all lines of the card.
+• When a change in any of the line’s states occurs, the detector circuit generates a
+pulse.
+• The generated pulse is picked up by an interrupt service on the daughter card MCU.
+• All GPIO lines are read, and the timestamp of the state change interrupt is
+prepended to the input states.
+• The generated data package is then forwarded to the controller card.
+According to the normal operation, each time one of the signals changes state, a new
+readout of all signals is generated. Beyond this, a timed readout of signals can also be set
+up. In this case, a timer is set to read all signals with a 1Hz frequency.
+In this example case, only 12 of the 16 channels are used.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-006-ROV
+
+General Principle of Operation
+
+Issue 1.0
+
+Page 46 of 46
+
+9 Jan 2024
+
+End of Document
+
+Industrial
+
+© Rovsing 2024
+
+

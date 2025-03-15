@@ -1,0 +1,76 @@
+/include/ "system-conf.dtsi"
+/ {
+        model = "Enclustra ZX3 SOM";
+};
+#include "zynq_enclustra_common.dtsi"
+#include "zynq_enclustra_mars_zx3.dtsi"
+#include "zynq_enclustra_mars_st3.dtsi"
+#include <dt-bindings/gpio/gpio.h>
+
+    /* 
+     * Override the auto-generated AXI Quad SPI node from pl.dtsi.
+     * The label 'axi_quad_spi_0' must match exactly what's in pl.dtsi.
+     */
+    &axi_quad_spi_0 {
+        /* Enable the SPI IP */
+        status = "okay";
+        interrupts = <0 29 1>;
+        interrupt-parent = <&intc>;  
+        /* 
+         * If Vivado config has 4 chip-select lines:
+         *   - num-cs = <4>;
+         *   - xlnx,num-ss-bits = <4>;
+         */
+        num-cs = <4>;
+        xlnx,num-ss-bits = <4>;
+        is-decoded-cs = <0>;
+	
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        /* 
+         * Add spidev children for each hardware chip-select line.
+         */
+        spidev@0 {
+            compatible = "rov,2200-eeprom";
+            reg = <0>;  /* CS0 */
+            spi-max-frequency = <10000000>;
+            card-select-gpios = <&SPI_CSB 0 0>, <&SPI_CSB 1 0>, 
+                               <&SPI_CSB 2 0>, <&SPI_CSB 3 0>;
+        };
+
+        spidev@1 {
+            compatible = "rov,2200-eeprom";
+            reg = <1>;  /* CS1 */
+            spi-max-frequency = <10000000>;
+            card-select-gpios = <&SPI_CSB 0 0>, <&SPI_CSB 1 0>, 
+                               <&SPI_CSB 2 0>, <&SPI_CSB 3 0>;
+        };
+
+        spidev@2 {
+            compatible = "rov,2200-eeprom";
+            reg = <2>;  /* CS2 */
+            spi-max-frequency = <10000000>;
+            card-select-gpios = <&SPI_CSB 0 0>, <&SPI_CSB 1 0>, 
+                               <&SPI_CSB 2 0>, <&SPI_CSB 3 0>;
+        };
+
+        spidev@3 {
+            compatible = "rov,2200-eeprom";
+            reg = <3>;  /* CS3 */
+            spi-max-frequency = <10000000>;
+            card-select-gpios = <&SPI_CSB 0 0>, <&SPI_CSB 1 0>, 
+                               <&SPI_CSB 2 0>, <&SPI_CSB 3 0>;
+        };
+    };
+
+    /*
+     * Enable and configure AXI GPIO that drives card select bits.
+     * The label 'SPI_CSB' must match what's in pl.dtsi for gpio@41200000.
+     */
+    &SPI_CSB {
+        status = "okay";
+
+        xlnx,all-inputs = <0x0>;
+        xlnx,all-outputs = <0xff>;
+    };

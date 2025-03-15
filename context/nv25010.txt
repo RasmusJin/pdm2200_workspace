@@ -1,0 +1,1872 @@
+DATA SHEET
+www.onsemi.com
+
+EEPROM Serial 1/2/4-Kb SPI
+Automotive Grade 0
+
+PIN CONFIGURATION
+
+Description
+
+NV25010, NV25020 and NV25040 are EEPROM Serial 1/2/4−Kb
+SPI Automotive Grade 0 devices internally organized as 128x8, 256x8
+and 512x8 bits. They feature a 16−byte page write buffer and support
+the Serial Peripheral Interface (SPI) protocol. The devices are enabled
+through a Chip Select (CS) input. In addition, the required bus signals
+are clock input (SCK), data input (SI) and data output (SO) lines. The
+HOLD input may be used to pause any serial communication with the
+NV250x0 device. The device features software and hardware write
+protection, including partial as well as full array protection. Byte
+Level On−Chip ECC (Error Correction Code) makes the device
+suitable for high reliability applications. The device offers an
+additional Identification Page which can be permanently write
+protected.
+
+• Automotive AEC−Q100 Grade 0 (−40°C to +150°C) Qualified
+• 2.5 V to 5.5 V Supply Voltage Range
+• 10 MHz SPI Compatible
+• SPI Modes (0,0) & (1,1)
+• 16−byte Page Write Buffer
+• Self−timed Write Cycle
+• Hardware and Software Protection
+• Additional Identification Page with Permanent Write Protection
+• NV Prefix for Automotive and Other Applications Requiring Site and
+Change Control
+
+• Block Write Protection
+
+− Protect 1/4, 1/2 or Entire EEPROM Array
+• Low Power CMOS Technology
+• Program/Erase Cycles:
+− 4,000,000 at 25°C
+− 1,200,000 at +85°C
+− 600,000 at +125°C
+− 300,000 at +150°C
+• 200 Year Data Retention
+• SOIC and TSSOP 8−lead Packages
+• This Device is Pb−Free, Halogen Free/BFR Free, and RoHS
+Compliant
+
+May, 2024 − Rev. 3
+
+CS
+
+1
+
+VCC
+
+SO
+
+HOLD
+
+WP
+
+SCK
+
+VSS
+
+SI
+
+SOIC (DW), TSSOP (DT)
+VCC
+SI
+CS
+WP
+
+NV250x0
+
+SO
+
+HOLD
+
+Features
+
+© Semiconductor Components Industries, LLC, 2017
+
+TSSOP−8
+DT SUFFIX
+CASE 948AL
+
+SOIC−8
+DW SUFFIX
+CASE 751BD
+
+NV25010, NV25020,
+NV25040
+
+1
+
+SCK
+VSS
+
+Figure 1. Functional Symbol
+PIN FUNCTION
+Pin Name
+
+Function
+
+CS
+
+Chip Select
+
+SO
+
+Serial Data Output
+
+WP
+
+Write Protect
+
+VSS
+
+Ground
+
+SI
+
+Serial Data Input
+
+SCK
+
+Serial Clock
+
+HOLD
+
+Hold Transmission Input
+
+VCC
+
+Power Supply
+
+ORDERING INFORMATION
+See detailed ordering and shipping information on page 10 of
+this data sheet.
+
+Publication Order Number:
+NV25010/D
+
+NV25010, NV25020, NV25040
+Table 1. ABSOLUTE MAXIMUM RATINGS
+Parameters
+
+Ratings
+
+Units
+
+Operating Temperature
+
+−45 to +150
+
+°C
+
+Storage Temperature
+
+−65 to +150
+
+°C
+
+Voltage on any Pin with Respect to Ground (Note 1)
+
+−0.5 to +6.5
+
+V
+
+Stresses exceeding those listed in the Maximum Ratings table may damage the device. If any of these limits are exceeded, device functionality
+should not be assumed, damage may occur and reliability may be affected.
+1. The DC input voltage on any pin should not be lower than −0.5 V or higher than VCC + 0.5 V. During transitions, the voltage on any pin may
+undershoot to no less than −1.5 V or overshoot to no more than VCC + 1.5 V, for periods of less than 20 ns.
+
+Table 2. RELIABILITY CHARACTERISTICS (Note 2)
+Symbol
+NEND
+
+TDR
+
+Parameter
+
+Test Condition
+
+Endurance
+
+Data Retention
+
+Max
+
+Units
+
+TA ≤ 25°C
+
+4,000,000
+
+TA = 85°C
+
+1,200,000
+
+Write Cycles
+(Note 3)
+
+TA = 125°C
+
+600,000
+
+TA = 150°C
+
+300,000
+
+TA = 25°C
+
+200
+
+Year
+
+2. Determined through qualification/characterization.
+3. A Write Cycle refers to writing a Byte, a Page, the Status Register or the Identification Page.
+
+Table 3. DC OPERATING CHARACTERISTICS
+
+(VCC = 2.5 V to 5.5 V, TA = −40°C to +150°C, unless otherwise specified.)
+Symbol
+
+Parameter
+
+Test Conditions
+
+Min
+
+Max
+
+Unit
+
+3
+
+mA
+
+2
+
+mA
+
+ICCR
+
+Supply Current
+(Read Mode)
+
+Read, SO open
+
+ICCW
+
+Supply Current
+(Write Mode)
+
+Write, CS = VCC
+
+ISB1
+
+Standby Current
+
+VIN = GND or VCC,
+CS = VCC, WP = VCC,
+HOLD = VCC, VCC = 5.5 V
+
+TA = −40°C to +125°C
+
+3
+
+mA
+
+TA = −40°C to +150°C
+
+5
+
+mA
+
+VIN = GND or VCC,
+CS = VCC, WP = GND,
+HOLD = GND, VCC = 5.5 V
+
+TA = −40°C to +125°C
+
+5
+
+mA
+
+TA = −40°C to +150°C
+
+10
+
+mA
+
+ISB2
+
+Standby Current
+
+fSCK = 10 MHz
+
+IL
+
+Input Leakage Current
+
+VIN = GND or VCC
+
+−2
+
+2
+
+mA
+
+ILO
+
+Output Leakage Current
+
+CS = VCC, VOUT = GND or VCC
+
+−2
+
+2
+
+mA
+
+VIL1
+
+Input Low Voltage
+
+−0.5
+
+0.3 VCC
+
+V
+
+VIH1
+
+Input High Voltage
+
+0.7 VCC
+
+VCC + 0.5
+
+V
+
+0.4
+
+V
+
+VOL1
+
+Output Low Voltage
+
+IOL = 3.0 mA
+
+VOH1
+
+Output High Voltage
+
+IOH = −1.6 mA
+
+VPORth
+
+Internal Power−On
+Reset Threshold
+
+VCC −0.8 V
+0.6
+
+V
+1.5
+
+V
+
+Product parametric performance is indicated in the Electrical Characteristics for the listed test conditions, unless otherwise noted. Product
+performance may not be indicated by the Electrical Characteristics if operated under different conditions.
+
+Table 4. PIN CAPACITANCE (TA = 25°C, f = 1.0 MHz, VCC = +5.0 V) (Note 2)
+Test
+
+Symbol
+
+Conditions
+
+Min
+
+Typ
+
+Max
+
+Unit
+
+COUT
+
+Output Capacitance (SO)
+
+VOUT = 0 V
+
+8
+
+pF
+
+CIN
+
+Input Capacitance (CS, SCK, SI, WP, HOLD)
+
+VIN = 0 V
+
+8
+
+pF
+
+www.onsemi.com
+2
+
+NV25010, NV25020, NV25040
+Table 5. AC CHARACTERISTICS (Note 4)
+Parameter
+
+Symbol
+
+Min
+
+Max
+
+Unit
+
+10
+
+MHz
+
+fSCK
+
+Clock Frequency
+
+DC
+
+tSU
+
+Data Setup Time
+
+10
+
+ns
+
+tH
+
+Data Hold Time
+
+10
+
+ns
+
+tWH
+
+SCK High Time
+
+40
+
+ns
+
+tWL
+
+SCK Low Time
+
+40
+
+ns
+
+tLZ
+
+HOLD to Output Low Z
+
+25
+
+ns
+
+tRI (Note 5)
+
+Input Rise Time
+
+2
+
+ms
+
+tFI (Note 5)
+
+Input Fall Time
+
+2
+
+ms
+
+tHD
+
+HOLD Setup Time
+
+0
+
+ns
+
+tCD
+
+HOLD Hold Time
+
+10
+
+tV
+
+Output Valid from Clock Low
+
+tHO
+
+Output Hold Time
+
+tDIS
+
+Output Disable Time
+
+20
+
+ns
+
+tHZ
+
+HOLD to Output High Z
+
+25
+
+ns
+
+tCS
+
+CS High Time
+
+40
+
+ns
+
+ns
+40
+
+ns
+
+0
+
+ns
+
+tCSS
+
+CS Setup Time
+
+30
+
+ns
+
+tCSH
+
+CS Hold Time
+
+30
+
+ns
+
+tCNS
+
+CS Inactive Setup Time
+
+30
+
+tCNH
+
+CS Inactive Hold Time
+
+30
+
+tWC (Note 6)
+
+Write Cycle Time
+
+4
+
+ms
+
+4. AC Test Conditions:
+Input Pulse Voltages: 0.3 VCC to 0.7 VCC
+Input rise and fall times: ≤ 10 ns
+Input and output reference voltages: 0.5 VCC
+Output load: current source IOL max/IOH max; CL = 30 pF
+5. This parameter is tested initially and after a design or process change that affects the parameter.
+6. tWC is the time from the rising edge of CS after a valid write sequence to the end of the internal write cycle.
+
+Table 6. POWER−UP TIMING (Notes 5, 7)
+Symbol
+
+Parameter
+
+Max
+
+Unit
+
+tPUR
+
+Power−up to Read Operation
+
+0.35
+
+ms
+
+tPUW
+
+Power−up to Write Operation
+
+0.35
+
+ms
+
+7. tPUR and tPUW are the delays required from the time VCC is stable until the specified operation can be initiated.
+
+www.onsemi.com
+3
+
+NV25010, NV25020, NV25040
+Pin Description
+
+Functional Description
+
+SI: The serial data input pin accepts op−codes, addresses
+and data. In SPI modes (0,0) and (1,1) input data is latched
+on the rising edge of the SCK clock input.
+SO: The serial data output pin is used to transfer data out of
+the device. In SPI modes (0,0) and (1,1) data is shifted out
+on the falling edge of the SCK clock.
+SCK: The serial clock input pin accepts the clock provided
+by the host and used for synchronizing communication
+between host and NV250x0.
+CS: The chip select input pin is used to enable/disable the
+NV250x0. When CS is high, the SO output is tri−stated (high
+impedance) and the device is in Standby Mode (unless an
+internal write operation is in progress). Every communication
+session between host and NV250x0 must be preceded by a
+high to low transition and concluded with a low to high
+transition of the CS input.
+WP: The write protect input pin will allow all write
+operations to the device when held high. When WP pin is
+tied low all write operations are inhibited.
+HOLD: The HOLD input pin is used to pause transmission
+between host and NV250x0, without having to retransmit
+the entire sequence at a later time. To pause, HOLD must be
+taken low and to resume it must be taken back high, with the
+SCK input low during both transitions. When not used for
+pausing, the HOLD input should be tied to VCC, either
+directly or through a resistor.
+
+The NV250x0 device supports the Serial Peripheral
+Interface (SPI) bus protocol, modes (0,0) and (1,1). The
+device contains an 8−bit instruction register. The instruction
+set and associated op−codes are listed in Table 7.
+Reading data stored in the NV250x0 is accomplished by
+simply providing the READ command and an address.
+Writing to the NV250x0, in addition to a WRITE command,
+address and data, also requires enabling the device for
+writing by first setting certain bits in a Status Register, as will
+be explained later.
+After a high to low transition on the CS input pin, the
+NV250x0 will accept any one of the six instruction op−codes
+listed in Table 7 and will ignore all other possible 8−bit
+combinations. The communication protocol follows the
+timing from Figure 2.
+The NV250x0 features an additional Identification Page
+(16 bytes) which can be accessed for Read and Write
+operations when the IPL bit from the Status Register is set
+to “0”. The user can also choose to make the Identification
+Page permanent write protected.
+Table 7. INSTRUCTION SET
+Instruction
+
+Op−code
+
+Operation
+
+WREN
+
+0000 0110
+
+Enable Write Operations
+
+WRDI
+
+0000 0100
+
+Disable Write Operations
+
+RDSR
+
+0000 0101
+
+Read Status Register
+
+WRSR
+
+0000 0001
+
+Write Status Register
+
+READ
+
+0000 0011
+
+Read Data from Memory
+
+WRITE
+
+0000 0010
+
+Write Data to Memory
+tCS
+
+CS
+tCSS
+
+tCNH
+
+tWH
+
+tWL
+
+tCNS
+
+tCSH
+
+SCK
+tSU
+
+tH
+
+tRI
+tFI
+
+VALID
+IN
+
+SI
+
+tV
+
+tV
+
+tDIS
+
+tHO
+SO
+
+HI−Z
+
+VALID
+OUT
+
+Figure 2. Synchronous Data Timing
+
+www.onsemi.com
+4
+
+HI−Z
+
+NV25010, NV25020, NV25040
+Status Register
+
+The IPL (Identification Page Latch) bit determines
+whether the additional Identification Page (IPL = 0) or main
+memory array (IPL = 1) can be accessed both for Read and
+Write operations. The IPL bit is set by the user with the
+WRSR command and is volatile. The IPL bit is
+automatically set to 1 after read/write operations. The LIP
+(Lock Identification Page) bit is set by the user with the
+WRSR command and is non−volatile. When set to 0, the
+Identification Page is permanently write protected (locked
+in Read−only mode).
+Note: The IPL and LIP bits cannot be set to 0 using the same
+WRSR instruction. If the user attempts to set (“0”) both the
+IPL and LIP bit in the same time, these bits cannot be written
+and therefore they will remain unchanged.
+
+The Status Register, as shown in Table 8, contains a
+number of status and control bits.
+The RDY (Ready) bit indicates whether the device is busy
+with a write operation. This bit is automatically set to 1 during
+an internal write cycle, and reset to 0 when the device is ready
+to accept commands. For the host, this bit is read only.
+The WEL (Write Enable Latch) bit is set/reset by the
+WREN/WRDI commands. When set to 1, the device is in a
+Write Enable state and when set to 0, the device is in a Write
+Disable state.
+The BP0 and BP1 (Block Protect) bits determine which
+blocks are currently write protected. They are set by the user
+with the WRSR command and are non−volatile. The user is
+allowed to protect a quarter, one half or the entire memory,
+by setting these bits according to Table 9. The protected
+blocks then become read−only.
+Table 8. STATUS REGISTER
+7
+
+6
+
+5
+
+4
+
+3
+
+2
+
+1
+
+0
+
+1
+
+IPL
+
+1
+
+LIP
+
+BP1
+
+BP0
+
+WEL
+
+RDY
+
+Table 9. BLOCK PROTECTION BITS
+Status Register Bits
+BP1
+
+BP0
+
+0
+
+0
+
+None
+
+No Protection
+
+0
+
+1
+
+NV25010: 060−07F, NV25020: 0C0−0FF,
+NV25040: 180−1FF
+
+Quarter Array Protection
+
+1
+
+0
+
+NV25010: 040−07F, NV25020: 080−0FF,
+NV25040: 100−1FF
+
+Half Array Protection
+
+1
+
+1
+
+NV25010: 000−07F, NV25020: 000−0FF,
+NV25040: 000−1FF
+
+Full Array Protection
+
+Array Address Protected
+
+Protection
+
+Table 10. WRITE PROTECT CONDITIONS
+WP
+
+WEL
+
+Protected Blocks
+
+Unprotected Blocks
+
+Status Register
+
+Low
+
+X
+
+Protected
+
+Protected
+
+Protected
+
+High
+
+0
+
+Protected
+
+Protected
+
+Protected
+
+High
+
+1
+
+Protected
+
+Writable
+
+Writable
+
+www.onsemi.com
+5
+
+NV25010, NV25020, NV25040
+WRITE OPERATIONS
+Write Enable and Write Disable
+
+The NV250x0 device powers up into a write disable state.
+The device contains a Write Enable Latch (WEL) which
+must be set before attempting to write to the memory array
+or to the status register. In addition, the address of the
+memory location(s) to be written must be outside the
+protected area, as defined by BP0 and BP1 bits from the
+status register.
+
+The internal Write Enable Latch and the corresponding
+Status Register WEL bit are set by sending the WREN
+instruction to the NV250x0. Care must be taken to take the
+CS input high after the WREN instruction, as otherwise the
+Write Enable Latch will not be properly set. WREN timing
+is illustrated in Figure 3. The WREN instruction must be
+sent prior to any WRITE or WRSR instruction.
+The internal write enable latch is reset by sending the
+WRDI instruction as shown in Figure 4. Disabling write
+operations by resetting the WEL bit, will protect the device
+against inadvertent writes.
+
+CS
+
+SCK
+
+SI
+
+SO
+
+0
+
+0
+
+0
+
+0
+
+0
+
+1
+
+1
+
+0
+
+HIGH IMPEDANCE
+Dashed Line = mode (1, 1)
+
+Figure 3. WREN Timing
+
+CS
+
+SCK
+
+SI
+
+SO
+
+0
+
+0
+
+0
+
+0
+
+0
+
+1
+
+0
+
+HIGH IMPEDANCE
+Dashed Line = mode (1, 1)
+
+Figure 4. WRDI Timing
+
+www.onsemi.com
+6
+
+0
+
+NV25010, NV25020, NV25040
+Byte Write
+
+page, thus possibly overwriting previously loaded data.
+Following completion of the write cycle, the NV250x0 is
+automatically returned to the write disable state.
+
+Once the WEL bit is set, the user may execute a write
+sequence, by sending a WRITE instruction, an 8−bit address
+and data as shown in Figure 5. For the NV25040, bit 3 of the
+write instruction opcode contains A8 address bit. Internal
+programming will start after the low to high CS transition.
+During an internal write cycle, all commands, except for
+RDSR (Read Status Register) will be ignored. The RDY bit
+will indicate if the internal write cycle is in progress (RDY
+high), or the device is ready to accept commands (RDY
+low).
+
+Write Identification Page
+
+The additional 16−byte Identification Page (IP) can be
+written with user data using the same Write commands
+sequence as used for Page Write to the main memory array
+(Figure 6). The IPL bit from the Status Register must be
+set to 0 using the WRSR instruction, before attempting
+to write to the IP. The address bits [A8:A4] are Don’t Care
+and the [A3:A0] bits define the byte address within the
+Identification Page. In addition, the Byte Address must point
+to a location outside the protected area defined by the BP1,
+BP0 bits from the Status Register. When the full memory
+array is write protected (BP1, BP0 = 1,1), the write
+instruction to the IP is not accepted and not executed. Also,
+the write to the IP is not accepted if the LIP bit from the
+Status Register is set to 0 (the page is locked in Read−only
+mode).
+
+Page Write
+
+After sending the first data byte to the NV250x0, the host
+may continue sending data, up to a total of 16 bytes,
+according to timing shown in Figure 6. After each data byte,
+the lower order address bits are automatically incremented,
+while the higher order address bits (page address) remain
+unchanged. If during this process the end of page is
+exceeded, then loading will “roll over” to the first byte in the
+
+CS
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+21
+
+8
+
+22 23
+
+24
+
+25
+
+26 27
+
+28
+
+29
+
+30 31
+
+SCK
+OPCODE
+SI
+
+0
+
+0
+
+0
+
+0
+
+X*
+
+0
+
+DATA IN
+
+BYTE ADDRESS*
+1
+
+0
+
+A0 D7 D6 D5 D4 D3 D2 D1 D0
+
+A7
+
+HIGH IMPEDANCE
+
+SO
+
+* X = 0 for NV25010, NV25020. x = A8 for NV25040
+
+Dashed Line = mode (1, 1)
+
+Figure 5. Byte WRITE Timing
+CS
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+21
+
+SCK
+
+0
+
+0
+
+0
+
+0
+
+X
+
+0
+
+23 24−31 32−39 24+(N−1)x8−1 .. 24+(N−1)x8
+24+Nx8−1
+
+BYTE ADDRESS*
+
+OPCODE
+SI
+
+22
+
+1
+
+0
+
+A7
+
+DATA IN
+
+A0
+Data Data Data
+Byte 1 Byte 2 Byte 3
+HIGH IMPEDANCE
+
+SO
+Dashed Line = mode (1, 1)
+
+Data Byte N
+7..1
+
+0
+
+* X = 0 for NV25010, NV25020. x = A8 for NV25040
+
+Figure 6. Page WRITE Timing
+
+www.onsemi.com
+7
+
+NV25010, NV25020, NV25040
+Write Status Register
+
+Write Protection
+
+The Status Register is written by sending a WRSR
+instruction according to timing shown in Figure 7. Only bits
+2, 3, 4 and 6 can be written using the WRSR command.
+
+When WP input is low all write operations to the memory
+array and Status Register are inhibited. WP going low while
+CS is still low will interrupt a write operation. If the internal
+write cycle has already been initiated, WP going low will
+have no effect on any write operation to the Status Register
+or memory array.
+
+CS
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+11
+
+1
+
+7
+
+6
+
+5
+
+4
+
+12
+
+13
+
+14
+
+15
+
+2
+
+1
+
+0
+
+SCK
+OPCODE
+SI
+
+0
+
+0
+
+0
+
+0
+
+0
+
+DATA IN
+0
+
+0
+
+MSB
+SO
+
+HIGH IMPEDANCE
+Dashed Line = mode (1, 1)
+
+Figure 7. WRSR Timing
+
+www.onsemi.com
+8
+
+3
+
+NV25010, NV25020, NV25040
+READ OPERATIONS
+Read from Memory Array
+
+internal write cycle is in progress, the RDSR command will
+output the full content of the status register. For easy
+detection of the internal write cycle completion, we
+recommend sampling the RDY bit only through the polling
+routine. After detecting the RDY bit “0”, the next RDSR
+instruction will always output the expected content of the
+status register.
+
+To read from memory, the host sends a READ instruction
+followed by a 8−bit address (for the NV25040, bit 3 of the
+read instruction opcode contains A8 address bit).
+After receiving the last address bit, the NV250x0 will
+respond by shifting out data on the SO pin (as shown in
+Figure 8). Sequentially stored data can be read out by simply
+continuing to run the clock. The internal address pointer is
+automatically incremented to the next higher address as data
+is shifted out. After reaching the highest memory address,
+the address counter “rolls over” to the lowest memory
+address, and the read cycle can be continued indefinitely.
+The read operation is terminated by taking CS high.
+
+Read Identification Page
+
+Reading the additional 16−byte Identification Page (IP) is
+achieved using the same Read command sequence as used
+for Read from main memory array (Figure 8). The IPL bit
+from the Status Register must be set to 0 before
+attempting to read from the IP. The [A3:A0] are the
+address significant bits that point to the data byte shifted out
+on the SO pin. If the CS continues to be held low, the internal
+address register defined by [A3:A0] bits is automatically
+incremented and the next data byte from the IP is shifted out.
+The byte address must not exceed the 16−byte page
+boundary.
+
+Read Status Register
+
+To read the status register, the host simply sends a RDSR
+command. After receiving the last bit of the command, the
+NV250x0 will shift out the contents of the status register on
+the SO pin (Figure 9). The status register may be read at any
+time, including during an internal write cycle. While the
+
+CS
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+1
+
+A7
+
+20 21
+
+10
+
+9
+
+22 23
+
+24
+
+25
+
+26 27
+
+28 29
+
+30
+
+SCK
+OPCODE
+SI
+
+0
+
+0
+
+0
+
+0
+
+X
+
+0
+
+BYTE ADDRESS*
+1
+
+A0
+DATA OUT
+
+HIGH IMPEDANCE
+
+SO
+
+7
+
+Dashed Line = mode (1, 1)
+* X = 0 for NV25010, NV25020. X = A8 for NV25040
+
+6
+
+5
+
+4
+
+3
+
+2
+
+1
+
+12
+
+13
+
+14
+
+2
+
+1
+
+0
+
+MSB
+
+Figure 8. READ Timing
+
+CS
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+1
+
+0
+
+1
+
+8
+
+9
+
+10
+
+11
+
+7
+
+6
+
+5
+
+4
+
+SCK
+OPCODE
+SI
+
+SO
+
+0
+
+0
+
+0
+
+0
+
+0
+
+DATA OUT
+
+HIGH IMPEDANCE
+
+MSB
+
+Dashed Line = mode (1, 1)
+
+Figure 9. RDSR Timing
+
+www.onsemi.com
+9
+
+3
+
+0
+
+NV25010, NV25020, NV25040
+Hold Operation
+
+below the POR trigger level. This bi−directional POR
+behavior protects the device against ‘brown−out’ failure
+following a temporary loss of power.
+The NV250x0 device powers up in a write disable state
+and in a low power standby mode. A WREN instruction
+must be issued prior to any writes to the device.
+After power up, the CS pin must be brought low to enter
+a ready state and receive an instruction. After a successful
+byte/page write or status register write, the device goes into
+a write disable mode. The CS input must be set high after the
+proper number of clock cycles to start the internal write
+cycle. Access to the memory array during an internal write
+cycle is ignored and programming is continued. Any invalid
+op−code will be ignored and the serial output pin (SO) will
+remain in the high impedance state.
+
+The HOLD input can be used to pause communication
+between host and NV250x0. To pause, HOLD must be taken
+low while SCK is low (Figure 10). During the hold condition
+the device must remain selected (CS low). During the pause,
+the data output pin (SO) is tri−stated (high impedance) and
+SI transitions are ignored. To resume communication,
+HOLD must be taken high while SCK is low.
+DESIGN CONSIDERATIONS
+The NV250x0 device incorporates Power−On Reset
+(POR) circuitry which protects the internal logic against
+powering up in the wrong state. The device will power up
+into Standby mode after VCC exceeds the POR trigger level
+and will power down into Reset mode when VCC drops
+
+CS
+
+tCD
+
+tCD
+
+SCK
+tHD
+tHD
+
+HOLD
+tHZ
+
+HIGH IMPEDANCE
+
+SO
+
+tLZ
+
+Dashed Line = mode (1, 1)
+
+Figure 10. HOLD Timing
+Error Correction Code
+
+The NV250x0 incorporates on−board Error Correction
+Code (ECC) circuitry, which makes it possible to detect and
+correct one faulty bit in a byte. ECC improves data reliability
+by correcting random single bit failures that might occur
+over the life of the device.
+ORDERING INFORMATION (Notes 8, 9)
+OPN
+
+Density
+
+Automotive Grade
+
+Package Type
+
+Shipping†
+
+NV25010DTHFT3G
+
+1 kb
+
+Grade 0 (−40°C to +150°C)
+
+TSSOP−8 (Pb−Free)
+
+3000 / Tape & Reel
+
+NV25010DWHFT3G
+
+1 kb
+
+Grade 0 (−40°C to +150°C)
+
+SOIC−8 (Pb−Free)
+
+3000 / Tape & Reel
+
+NV25020DTHFT3G
+
+2 kb
+
+Grade 0 (−40°C to +150°C)
+
+TSSOP−8 (Pb−Free)
+
+3000 / Tape & Reel
+
+NV25020DWHFT3G
+
+2 kb
+
+Grade 0 (−40°C to +150°C)
+
+SOIC−8 (Pb−Free)
+
+3000 / Tape & Reel
+
+NV25040DTHFT3G
+
+4 kb
+
+Grade 0 (−40°C to +150°C)
+
+TSSOP−8 (Pb−Free)
+
+3000 / Tape & Reel
+
+NV25040DWHFT3G
+
+4 kb
+
+Grade 0 (−40°C to +150°C)
+
+SOIC−8 (Pb−Free)
+
+3000 / Tape & Reel
+
+†For information on tape and reel specifications, including part orientation and tape sizes, please refer to our Tape and Reel Packaging
+Specifications Brochure, BRD8011/D.
+8. All packages are RoHS−compliant (Pb−Free, Halogen−free).
+9. The standard lead finish is NiPdAu.
+
+www.onsemi.com
+10
+
+MECHANICAL CASE OUTLINE
+PACKAGE DIMENSIONS
+
+SOIC−8, 150 mils
+CASE 751BD
+ISSUE O
+
+E1
+
+DATE 19 DEC 2008
+
+E
+
+SYMBOL
+
+MIN
+
+A
+
+1.35
+
+1.75
+
+A1
+
+0.10
+
+0.25
+
+b
+
+0.33
+
+0.51
+
+MAX
+
+c
+
+0.19
+
+0.25
+
+D
+
+4.80
+
+5.00
+
+E
+
+5.80
+
+6.20
+
+E1
+
+3.80
+
+4.00
+1.27 BSC
+
+e
+
+PIN # 1
+IDENTIFICATION
+
+NOM
+
+h
+
+0.25
+
+0.50
+
+L
+
+0.40
+
+1.27
+
+θ
+
+0º
+
+8º
+
+TOP VIEW
+
+D
+
+h
+
+A1
+
+A
+
+θ
+
+c
+e
+
+b
+SIDE VIEW
+
+L
+END VIEW
+
+Notes:
+(1) All dimensions are in millimeters. Angles in degrees.
+(2) Complies with JEDEC MS-012.
+
+DOCUMENT NUMBER:
+DESCRIPTION:
+
+98AON34272E
+SOIC−8, 150 MILS
+
+Electronic versions are uncontrolled except when accessed directly from the Document Repository.
+Printed versions are uncontrolled except when stamped “CONTROLLED COPY” in red.
+
+PAGE 1 OF 1
+
+onsemi and
+are trademarks of Semiconductor Components Industries, LLC dba onsemi or its subsidiaries in the United States and/or other countries. onsemi reserves
+the right to make changes without further notice to any products herein. onsemi makes no warranty, representation or guarantee regarding the suitability of its products for any particular
+purpose, nor does onsemi assume any liability arising out of the application or use of any product or circuit, and specifically disclaims any and all liability, including without limitation
+special, consequential or incidental damages. onsemi does not convey any license under its patent rights nor the rights of others.
+
+© Semiconductor Components Industries, LLC, 2008
+
+www.onsemi.com
+
+MECHANICAL CASE OUTLINE
+PACKAGE DIMENSIONS
+
+TSSOP8, 4.4x3.0, 0.65P
+CASE 948AL
+ISSUE A
+DATE 20 MAY 2022
+
+q
+
+q
+
+GENERIC
+MARKING DIAGRAM*
+XXX
+YWW
+AG
+XXX
+Y
+WW
+A
+G
+
+= Specific Device Code
+= Year
+= Work Week
+= Assembly Location
+= Pb−Free Package
+
+*This information is generic. Please refer to
+device data sheet for actual part marking.
+Pb−Free indicator, “G” or microdot “G”, may
+or may not be present. Some products may
+not follow the Generic Marking.
+
+DOCUMENT NUMBER:
+DESCRIPTION:
+
+98AON34428E
+TSSOP8, 4.4X3.0, 0.65P
+
+Electronic versions are uncontrolled except when accessed directly from the Document Repository.
+Printed versions are uncontrolled except when stamped “CONTROLLED COPY” in red.
+
+PAGE 1 OF 1
+
+onsemi and
+are trademarks of Semiconductor Components Industries, LLC dba onsemi or its subsidiaries in the United States and/or other countries. onsemi reserves
+the right to make changes without further notice to any products herein. onsemi makes no warranty, representation or guarantee regarding the suitability of its products for any particular
+purpose, nor does onsemi assume any liability arising out of the application or use of any product or circuit, and specifically disclaims any and all liability, including without limitation
+special, consequential or incidental damages. onsemi does not convey any license under its patent rights nor the rights of others.
+
+© Semiconductor Components Industries, LLC, 2011
+
+www.onsemi.com
+
+onsemi,
+, and other names, marks, and brands are registered and/or common law trademarks of Semiconductor Components Industries, LLC dba “onsemi” or its affiliates
+and/or subsidiaries in the United States and/or other countries. onsemi owns the rights to a number of patents, trademarks, copyrights, trade secrets, and other intellectual property.
+A listing of onsemi’s product/patent coverage may be accessed at www.onsemi.com/site/pdf/Patent−Marking.pdf. onsemi reserves the right to make changes at any time to any
+products or information herein, without notice. The information herein is provided “as−is” and onsemi makes no warranty, representation or guarantee regarding the accuracy of the
+information, product features, availability, functionality, or suitability of its products for any particular purpose, nor does onsemi assume any liability arising out of the application or use
+of any product or circuit, and specifically disclaims any and all liability, including without limitation special, consequential or incidental damages. Buyer is responsible for its products
+and applications using onsemi products, including compliance with all laws, regulations and safety requirements or standards, regardless of any support or applications information
+provided by onsemi. “Typical” parameters which may be provided in onsemi data sheets and/or specifications can and do vary in different applications and actual performance may
+vary over time. All operating parameters, including “Typicals” must be validated for each customer application by customer’s technical experts. onsemi does not convey any license
+under any of its intellectual property rights nor the rights of others. onsemi products are not designed, intended, or authorized for use as a critical component in life support systems
+or any FDA Class 3 medical devices or medical devices with a same or similar classification in a foreign jurisdiction or any devices intended for implantation in the human body. Should
+Buyer purchase or use onsemi products for any such unintended or unauthorized application, Buyer shall indemnify and hold onsemi and its officers, employees, subsidiaries, affiliates,
+and distributors harmless against all claims, costs, damages, and expenses, and reasonable attorney fees arising out of, directly or indirectly, any claim of personal injury or death
+associated with such unintended or unauthorized use, even if such claim alleges that onsemi was negligent regarding the design or manufacture of the part. onsemi is an Equal
+Opportunity/Affirmative Action Employer. This literature is subject to all applicable copyright laws and is not for resale in any manner.
+
+ADDITIONAL INFORMATION
+TECHNICAL PUBLICATIONS:
+Technical Library: www.onsemi.com/design/resources/technical−documentation
+onsemi Website: www.onsemi.com
+
+
+
+ONLINE SUPPORT: www.onsemi.com/support
+For additional information, please contact your local Sales Representative at
+www.onsemi.com/support/sales
+
+

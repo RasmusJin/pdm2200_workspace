@@ -1,0 +1,12 @@
+we discussed and agreed on the following:
+
+the EEPROM needs to store:
+
+- CARD ID: (6 digit decimals numbers), 3 words.
+- REVISION: (for example: "A5"), 1 word.
+- Serial number SerialNumMSB: 8 bit, SerialNumLSB 8bit: 2 words.
+- Calibration Year: ("2000 0x00"), 1 word.
+- Calibration Month: ( 0 - 12), 1 word.
+- Calibration data: Gain linearity, 4 words.
+- Calibration data: Offset: 4 words.
+- Calibration data: Command ID: 1 word

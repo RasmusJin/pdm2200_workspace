@@ -1,0 +1,232 @@
+MA-ZX3-20-1C-D9-ST3-SD:~$ sudo gpiodetect
+
+gpiochip0 [41200000.gpio] (4 lines)
+gpiochip1 [43c20000.gpio] (4 lines)
+gpiochip2 [zynq_gpio] (118 lines)
+
+
+MA-ZX3-20-1C-D9-ST3-SD:~$ sudo gpioinfo gpiochip0 && sudo gpioinfo gpiochip1
+gpiochip0 - 4 lines:
+	line   0:      unnamed       unused   input  active-high 
+	line   1:      unnamed       unused   input  active-high 
+	line   2:      unnamed       unused   input  active-high 
+	line   3:      unnamed       unused   input  active-high 
+gpiochip1 - 4 lines:
+	line   0:      unnamed       unused   input  active-high 
+	line   1:      unnamed       unused   input  active-high 
+	line   2:      unnamed       unused   input  active-high 
+	line   3:      unnamed       unused   input  active-high 
+
+MA-ZX3-20-1C-D9-ST3-SD:~$ ls -la /dev/spi*
+crw-rw-rw- 1 root root 153, 0 Mar 11 13:24 /dev/spidev1.0
+crw------- 1 root root 153, 1 Mar 11 13:24 /dev/spidev1.1
+crw------- 1 root root 153, 2 Mar 11 13:24 /dev/spidev1.2
+crw------- 1 root root 153, 3 Mar 11 13:24 /dev/spidev1.3
+
+MA-ZX3-20-1C-D9-ST3-SD:~$ cat /sys/bus/spi/devices/spi*/modalias
+spi:s25fl512s
+spi:dh2228fv
+spi:dh2228fv
+spi:dh2228fv
+spi:dh2228fv
+
+MA-ZX3-20-1C-D9-ST3-SD:~$ dmesg | grep -i gpio
+[    0.755794] sdhci-arasan e0100000.mmc: using DT '/axi/mmc@e0100000' for 'cd' GPIO lookup
+[    0.760408] of_get_named_gpiod_flags: can't parse 'cd-gpios' property of node '/axi/mmc@e0100000[0]'
+[    0.760456] of_get_named_gpiod_flags: can't parse 'cd-gpio' property of node '/axi/mmc@e0100000[0]'
+[    0.760487] sdhci-arasan e0100000.mmc: using lookup tables for GPIO lookup
+[    0.760501] sdhci-arasan e0100000.mmc: No GPIO consumer cd found
+[    0.760517] sdhci-arasan e0100000.mmc: using DT '/axi/mmc@e0100000' for 'wp' GPIO lookup
+[    0.760556] of_get_named_gpiod_flags: can't parse 'wp-gpios' property of node '/axi/mmc@e0100000[0]'
+[    0.760597] of_get_named_gpiod_flags: can't parse 'wp-gpio' property of node '/axi/mmc@e0100000[0]'
+[    0.760624] sdhci-arasan e0100000.mmc: using lookup tables for GPIO lookup
+[    0.760637] sdhci-arasan e0100000.mmc: No GPIO consumer wp found
+[  167.168522] gpio gpiochip0: Persistence not supported for GPIO 0
+[  167.168560] gpio gpiochip0: registered chardev handle for line 0
+[  167.168589] gpio gpiochip0: registered chardev handle for 1 lines
+[  196.311189] gpio gpiochip0: Persistence not supported for GPIO 1
+[  196.311228] gpio gpiochip0: registered chardev handle for line 1
+[  196.311258] gpio gpiochip0: registered chardev handle for 1 lines
+[  249.471211] gpio gpiochip0: Persistence not supported for GPIO 0
+[  249.471249] gpio gpiochip0: registered chardev handle for line 0
+[  249.471279] gpio gpiochip0: registered chardev handle for 1 lines
+[  249.506414] gpio gpiochip0: Persistence not supported for GPIO 1
+[  249.506452] gpio gpiochip0: registered chardev handle for line 1
+[  249.506483] gpio gpiochip0: registered chardev handle for 1 lines
+[  300.211349] gpio gpiochip0: Persistence not supported for GPIO 0
+[  300.211388] gpio gpiochip0: registered chardev handle for line 0
+[  300.211417] gpio gpiochip0: registered chardev handle for 1 lines
+[  300.246640] gpio gpiochip0: Persistence not supported for GPIO 1
+[  300.246679] gpio gpiochip0: registered chardev handle for line 1
+[  300.246709] gpio gpiochip0: registered chardev handle for 1 lines
+[  317.201218] gpio gpiochip0: Persistence not supported for GPIO 0
+[  317.201257] gpio gpiochip0: registered chardev handle for line 0
+[  317.201288] gpio gpiochip0: registered chardev handle for 1 lines
+[  317.236297] gpio gpiochip0: Persistence not supported for GPIO 1
+[  317.236335] gpio gpiochip0: registered chardev handle for line 1
+[  317.236366] gpio gpiochip0: registered chardev handle for 1 lines
+[  336.201278] gpio gpiochip0: Persistence not supported for GPIO 0
+[  336.201316] gpio gpiochip0: registered chardev handle for line 0
+[  336.201346] gpio gpiochip0: registered chardev handle for 1 lines
+[  353.001297] gpio gpiochip0: Persistence not supported for GPIO 0
+[  353.001336] gpio gpiochip0: registered chardev handle for line 0
+[  353.001366] gpio gpiochip0: registered chardev handle for 1 lines
+[  373.921214] gpio gpiochip0: Persistence not supported for GPIO 0
+[  373.921253] gpio gpiochip0: registered chardev handle for line 0
+[  373.921283] gpio gpiochip0: registered chardev handle for 1 lines
+[  384.611261] gpio gpiochip0: Persistence not supported for GPIO 0
+[  384.611299] gpio gpiochip0: registered chardev handle for line 0
+[  384.611330] gpio gpiochip0: registered chardev handle for 1 lines
+[  391.771247] gpio gpiochip0: Persistence not supported for GPIO 1
+[  391.771285] gpio gpiochip0: registered chardev handle for line 1
+[  391.771316] gpio gpiochip0: registered chardev handle for 1 lines
+[  394.931293] gpio gpiochip0: Persistence not supported for GPIO 2
+[  394.931332] gpio gpiochip0: registered chardev handle for line 2
+[  394.931361] gpio gpiochip0: registered chardev handle for 1 lines
+[  400.011239] gpio gpiochip0: Persistence not supported for GPIO 3
+[  400.011279] gpio gpiochip0: registered chardev handle for line 3
+[  400.011309] gpio gpiochip0: registered chardev handle for 1 lines
+[  408.911190] gpio gpiochip0: Persistence not supported for GPIO 0
+[  408.911228] gpio gpiochip0: registered chardev handle for line 0
+[  408.911259] gpio gpiochip0: registered chardev handle for 1 lines
+[  414.401272] gpio gpiochip0: Persistence not supported for GPIO 1
+[  414.401311] gpio gpiochip0: registered chardev handle for line 1
+[  414.401342] gpio gpiochip0: registered chardev handle for 1 lines
+[  418.841637] gpio gpiochip0: Persistence not supported for GPIO 2
+[  418.841675] gpio gpiochip0: registered chardev handle for line 2
+[  418.841705] gpio gpiochip0: registered chardev handle for 1 lines
+[  422.541199] gpio gpiochip0: Persistence not supported for GPIO 3
+[  422.541238] gpio gpiochip0: registered chardev handle for line 3
+[  422.541270] gpio gpiochip0: registered chardev handle for 1 lines
+[  446.051302] gpio gpiochip0: Persistence not supported for GPIO 0
+[  446.051340] gpio gpiochip0: registered chardev handle for line 0
+[  446.051371] gpio gpiochip0: registered chardev handle for 1 lines
+[  451.261287] gpio gpiochip0: Persistence not supported for GPIO 1
+[  451.261325] gpio gpiochip0: registered chardev handle for line 1
+[  451.261356] gpio gpiochip0: registered chardev handle for 1 lines
+[  475.671168] gpio gpiochip0: Persistence not supported for GPIO 0
+[  475.671207] gpio gpiochip0: registered chardev handle for line 0
+[  475.671238] gpio gpiochip0: registered chardev handle for 1 lines
+[  479.401229] gpio gpiochip0: Persistence not supported for GPIO 0
+[  479.401268] gpio gpiochip0: registered chardev handle for line 0
+[  479.401299] gpio gpiochip0: registered chardev handle for 1 lines
+[  490.401193] gpio gpiochip0: Persistence not supported for GPIO 0
+[  490.401231] gpio gpiochip0: registered chardev handle for line 0
+[  490.401261] gpio gpiochip0: registered chardev handle for 1 lines
+[  534.241227] gpio gpiochip0: Persistence not supported for GPIO 0
+[  534.241265] gpio gpiochip0: registered chardev handle for line 0
+[  534.241295] gpio gpiochip0: registered chardev handle for 1 lines
+[  572.131260] gpio gpiochip0: Persistence not supported for GPIO 1
+[  572.131299] gpio gpiochip0: registered chardev handle for line 1
+[  572.131329] gpio gpiochip0: registered chardev handle for 1 lines
+[  595.781204] gpio gpiochip0: Persistence not supported for GPIO 2
+[  595.781243] gpio gpiochip0: registered chardev handle for line 2
+[  595.781274] gpio gpiochip0: registered chardev handle for 1 lines
+[  611.771155] gpio gpiochip0: Persistence not supported for GPIO 3
+[  611.771193] gpio gpiochip0: registered chardev handle for line 3
+[  611.771225] gpio gpiochip0: registered chardev handle for 1 lines
+[87569.963001] gpio gpiochip2: Persistence not supported for GPIO 0
+[87569.963036] gpio gpiochip2: registered chardev handle for line 0
+[87569.963065] gpio gpiochip2: registered chardev handle for 1 lines
+[87619.922216] gpio gpiochip2: Persistence not supported for GPIO 0
+[87619.922250] gpio gpiochip2: registered chardev handle for line 0
+[87619.922280] gpio gpiochip2: registered chardev handle for 1 lines
+[87619.957389] gpio gpiochip2: Persistence not supported for GPIO 1
+[87619.957423] gpio gpiochip2: registered chardev handle for line 1
+[87619.957453] gpio gpiochip2: registered chardev handle for 1 lines
+[87619.992461] gpio gpiochip2: Persistence not supported for GPIO 2
+[87619.992495] gpio gpiochip2: registered chardev handle for line 2
+[87619.992524] gpio gpiochip2: registered chardev handle for 1 lines
+[87620.028530] gpio gpiochip2: Persistence not supported for GPIO 3
+[87620.028564] gpio gpiochip2: registered chardev handle for line 3
+[87620.028593] gpio gpiochip2: registered chardev handle for 1 lines
+[87668.789106] gpio gpiochip2: Persistence not supported for GPIO 2
+[87668.789142] gpio gpiochip2: registered chardev handle for line 2
+[87668.789172] gpio gpiochip2: registered chardev handle for 1 lines
+[87678.021640] gpio gpiochip2: Persistence not supported for GPIO 2
+[87678.021675] gpio gpiochip2: registered chardev handle for line 2
+[87678.021705] gpio gpiochip2: registered chardev handle for 1 lines
+[87716.721065] gpio gpiochip0: Persistence not supported for GPIO 0
+[87716.721103] gpio gpiochip0: registered chardev handle for line 0
+[87716.721133] gpio gpiochip0: registered chardev handle for 1 lines
+[87716.756305] gpio gpiochip0: Persistence not supported for GPIO 1
+[87716.756343] gpio gpiochip0: registered chardev handle for line 1
+[87716.756373] gpio gpiochip0: registered chardev handle for 1 lines
+[87716.791731] gpio gpiochip0: Persistence not supported for GPIO 2
+[87716.791769] gpio gpiochip0: registered chardev handle for line 2
+[87716.791800] gpio gpiochip0: registered chardev handle for 1 lines
+[87716.827211] gpio gpiochip0: Persistence not supported for GPIO 3
+[87716.827248] gpio gpiochip0: registered chardev handle for line 3
+[87716.827279] gpio gpiochip0: registered chardev handle for 1 lines
+
+MA-ZX3-20-1C-D9-ST3-SD:~$ ls -la /sys/class/spi_master/
+total 0
+drwxr-xr-x  2 root root 0 Mar 11 13:23 .
+drwxr-xr-x 50 root root 0 Mar 11 13:23 ..
+lrwxrwxrwx  1 root root 0 Mar 11 13:23 spi0 -> ../../devices/soc0/axi/e000d000.spi/spi_master/spi0
+lrwxrwxrwx  1 root root 0 Mar 11 13:23 spi1 -> ../../devices/soc0/pl-bus/43c00000.axi_quad_spi/spi_master/spi1
+
+cat: /sys/class/spi_master/spi1/modalias: No such file or directory
+MA-ZX3-20-1C-D9-ST3-SD:~$ ls -la /sys/bus/spi/devices/spi1.*
+lrwxrwxrwx 1 root root 0 Mar 11 13:23 /sys/bus/spi/devices/spi1.0 -> ../../../devices/soc0/pl-bus/43c00000.axi_quad_spi/spi_master/spi1/spi1.0
+lrwxrwxrwx 1 root root 0 Mar 11 13:23 /sys/bus/spi/devices/spi1.1 -> ../../../devices/soc0/pl-bus/43c00000.axi_quad_spi/spi_master/spi1/spi1.1
+lrwxrwxrwx 1 root root 0 Mar 11 13:23 /sys/bus/spi/devices/spi1.2 -> ../../../devices/soc0/pl-bus/43c00000.axi_quad_spi/spi_master/spi1/spi1.2
+lrwxrwxrwx 1 root root 0 Mar 11 13:23 /sys/bus/spi/devices/spi1.3 -> ../../../devices/soc0/pl-bus/43c00000.axi_quad_spi/spi_master/spi1/spi1.3
+
+test performed:
+
+MA-ZX3-20-1C-D9-ST3-SD:~$ sudo /usr/local/scripts/spidev_test -D /dev/spidev1.0 -v -p "\x06"
+Password: 
+spi mode: 0x0
+bits per word: 8
+max speed: 500000 Hz (500 kHz)
+TX | 06 __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __  |.|
+RX | FF __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __  |.|
+MA-ZX3-20-1C-D9-ST3-SD:~$ sudo /usr/local/scripts/spidev_test -D /dev/spidev1.0 -v -p "\x05\x00\x00\x00\x00\x00\x00"
+spi mode: 0x0
+bits per word: 8
+max speed: 500000 Hz (500 kHz)
+TX | 05 00 00 00 00 00 00 __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __  |.......|
+RX | FF F2 F2 F2 F2 F2 F2 __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __  |.......|
+MA-ZX3-20-1C-D9-ST3-SD:~$ sudo /usr/local/scripts/spidev_test -D /dev/spidev1.0 -v -p "\x02\x00\x54\x45\x53\x54"
+spi mode: 0x0
+bits per word: 8
+max speed: 500000 Hz (500 kHz)
+TX | 02 00 54 45 53 54 __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __  |..TEST|
+RX | FF FF FF FF FF FF __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __  |......|
+MA-ZX3-20-1C-D9-ST3-SD:~$ sudo /usr/local/scripts/spidev_test -D /dev/spidev1.0 -v -p "\x03\x00\x00\x00\x00\x00\x00"
+spi mode: 0x0
+bits per word: 8
+max speed: 500000 Hz (500 kHz)
+TX | 03 00 00 00 00 00 00 __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __  |.......|
+RX | FF FF 54 45 53 54 4F __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __  |..TESTO|
+
+gpiochip0 0 = card select 0
+gpiochip0 1 = card select 1
+gpiochip0 2 = card select 2
+gpiochip0 3 = card select 3
+
+gpiochip1 0 = chip select 0
+gpiochip1 1 = chip select 1
+gpiochip1 2 = chip select 2
+gpiochip1 3 = chip select 3
+
+right now they are set to, we use this for a reference:
+
+MA-ZX3-20-1C-D9-ST3-SD:~$ sudo gpioget gpiochip0 0 && sudo gpioget gpiochip0 1 && sudo gpioget gpiochip0 2 && sudo gpioget gpiochip0 3
+ 
+0
+0
+1
+1
+
+as seen above, the test works.
+
+this binary address means that we are addressing the card in slot: 12
+because 1100 = 12 in decimal.
+
+specific model of the EEPROM is: NV25020, with the 2kb.
+
+the ip core in vivado is the axi_quad_spi.
+
+the driver is: xilinx_spi.c

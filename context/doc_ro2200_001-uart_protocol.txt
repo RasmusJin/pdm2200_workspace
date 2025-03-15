@@ -1,0 +1,953 @@
+DOC-RO2200-001-ROV
+Issue 1.0
+9 Jan 2024
+
+PDM Development
+Power/Discrete Mainframe
+UART Protocol Interface Description
+
+Prepared by
+Adam Kiss
+Hardware Engineer
+
+Checked by
+Reviewer
+Position
+Unauthorised distribution, dissemination or disclosure not allowed
+
+© Rovsing A/S 2024
+The copyright in this document is vested in Rovsing A/S.
+
+www.rovsing.dk
+
+Ejby Industrivej 34-38
+
+Phone:
+
+Fax:
+
+VAT No.:
+
+info@rovsing.dk
+
+DK-2600 Glostrup
+
++45 44 200 800
+
++45 44 200 801
+
+DK-16 13 90 84
+
+PDM Development
+
+DOC-RO2200-001-ROV
+
+UART Protocol Interface Description
+
+Issue 1.0
+
+Page 2 of 13
+
+9 Jan 2024
+
+Document attributes
+Customer
+Rovsing AS
+File name
+
+DOC-RO2200-001-ROV - UART Protocol Interface Description.docx
+
+Document change log
+Issue
+
+Date
+
+Modified sections
+
+1.0
+
+09.01.2024
+
+All
+
+Industrial
+
+Description of change
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-001-ROV
+
+UART Protocol Interface Description
+
+Issue 1.0
+
+Page 3 of 13
+
+9 Jan 2024
+
+Table of contents
+1
+
+2
+
+3
+
+INTRODUCTION ...............................................................................................................5
+1.1
+
+Purpose and scope .......................................................................................................... 5
+
+1.2
+
+Document Outline ........................................................................................................... 5
+
+DOCUMENTS AND DEFINITIONS ....................................................................................6
+2.1
+
+Applicable Documents .................................................................................................... 6
+
+2.2
+
+Reference Documents .................................................................................................... 6
+
+2.3
+
+Normative Documents .................................................................................................... 6
+
+2.4
+
+Acronyms and abbreviations ......................................................................................... 7
+
+FUNCTIONAL DESCRIPTION............................................................................................8
+3.1
+
+Description of the system............................................................................................... 8
+
+3.2
+
+Description of the UART protocol .................................................................................. 9
+3.2.1
+
+Commands .......................................................................................................... 9
+
+3.2.2
+
+Timed Commands ............................................................................................ 10
+
+3.2.3
+
+Responses ......................................................................................................... 11
+
+3.2.4
+
+Data dumps ...................................................................................................... 11
+
+3.2.5
+
+Modification flags ............................................................................................. 12
+
+Table of tables
+Table 2-1: List of Applicable Documents ........................................................................................ 6
+Table 2-2: List of Reference Documents ........................................................................................ 6
+Table 2-3: List of Normative Documents ........................................................................................ 6
+Table 3-1: Detailed data structure of an example command ..................................................... 9
+Table 3-2: Detailed overview of the of the Nr. Arguments field ................................................ 10
+Table 3-3: Data structure of an example timed command ....................................................... 10
+Table 3-4: Detailed overview of the of the Nr. Arguments field ................................................ 10
+Table 3-5: Iverview of Arg 3 containing command timing information ................................... 11
+Table 3-6: Example response with timestamp ............................................................................ 11
+Table 3-7: Data dump structure .................................................................................................... 12
+Table 3-8: Detailed data structure of the Index and timestamp information regarding data
+dumps ............................................................................................................................... 12
+Table 3-9: Detailed data structure of the trigger context and sampling speed information 12
+
+Table of figures
+Figure 3-1: Illustration of system architecture .............................................................................. 8
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-001-ROV
+
+UART Protocol Interface Description
+
+Issue 1.0
+
+Page 4 of 13
+
+9 Jan 2024
+
+Figure 3-2: Available communication interfaces ...................... Error! Bookmark not defined.
+Figure 3-3: General composition of a command .......................................................................... 9
+Figure 3-4: General composition of a command ........................................................................ 11
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+1
+
+DOC-RO2200-001-ROV
+
+UART Protocol Interface Description
+
+Issue 1.0
+
+Page 5 of 13
+
+9 Jan 2024
+
+INTRODUCTION
+
+1.1
+
+Purpose and scope
+
+This document contains the principle of operation and command descriptions for the
+internal UART communication protocol, employed between Daughter Cards of the PDM (DCPDM) and the Controller Card of the PDM (CC-PDM).
+
+1.2
+
+Document Outline
+
+The document first presents the principle of operation, then the general structure of a
+command. The document will also detail data streaming in DC→CC direction.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+2
+
+DOC-RO2200-001-ROV
+
+UART Protocol Interface Description
+
+Issue 1.0
+
+Page 6 of 13
+
+9 Jan 2024
+
+DOCUMENTS AND DEFINITIONS
+
+The following sections list the applicable, reference and normative documents that relate to
+this document. These are set out as follows:
+Applicable documents: Documents provided by the customer which form the basis of
+the present document, i.e. the present document explains how the Rovsing design,
+implementation and/or processes respond to the requirements established through the
+applicable documents.
+Reference documents: Documents delivered by Rovsing and which are referred to in the
+present document.
+Normative documents: Regulations, laws, or industry standards applicable to the
+Rovsing delivery and relevant to the present document.
+
+2.1
+
+Applicable Documents
+
+Reference Document Reference
+
+Issue Document Title
+
+[ICDT-007s]
+
+DOC-RO2200-050-ROV
+
+1.0
+
+SLP30 Command and response table
+
+[DDD-003]
+
+DDD-RO2200-003-ROV
+
+1.0
+
+General principle of operations
+
+[ICD-004]
+
+ICD-RO2200-004-ROV
+
+1.0
+
+SLP30 Command and response table
+
+[DDD-004]
+
+DDD-RO2200-004-ROV
+
+1.0
+
+Embedded Software Design Document
+
+Table 2-1: List of Applicable Documents
+
+2.2
+
+Reference Documents
+
+Reference Document Reference
+
+Issue Document Title
+
+Table 2-2: List of Reference Documents
+
+2.3
+
+Normative Documents
+
+Reference Document Reference
+
+Issue Document Title
+
+Table 2-3: List of Normative Documents
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+2.4
+Term
+A
+ADC
+B
+C
+CAD
+CC
+CD
+CMD
+CNT
+CS
+D
+DC
+DMA
+DNC
+E
+F
+FPGA
+G
+H
+HEX
+HW
+I
+ID
+IND
+J
+K
+L
+LSB
+M
+MCU
+MSB
+N
+NA
+O
+P
+PCB
+PDM
+PPS
+Q
+R
+ROV
+RSP
+RX
+S
+SOM
+SPI
+T
+TX
+U
+UART
+V
+W
+X
+Y
+
+Industrial
+
+DOC-RO2200-001-ROV
+
+UART Protocol Interface Description
+
+Issue 1.0
+
+Page 7 of 13
+
+9 Jan 2024
+
+Acronyms and abbreviations
+Definition
+Analog to Digital Converter
+
+Computer Aided Design
+Contact Closure
+Compact Disk
+Used shorthand for Command
+Used shorthand for Count
+Commercial Service
+Direct Current
+Direct Memory Access
+Do not Care
+
+Field Programmable Gate Array
+
+Used shorthand for Hexadecimal
+Hardware
+Identifier
+Used shorthand for Index
+
+Least Significant Bit
+Microcontroller Unit
+Most Significant Bit
+Not Applicable
+
+Printed Circuit Board
+Power Distribution Module
+Pulse Per Second
+
+Rovsing
+Used shorthand for Response
+Receiver
+System on a Module
+Serial Peripherial Interface
+Transmitter
+Universal Asynchronous Receiver Transmitter
+
+© Rovsing 2024
+
+PDM Development
+
+3
+
+DOC-RO2200-001-ROV
+
+UART Protocol Interface Description
+
+Issue 1.0
+
+Page 8 of 13
+
+9 Jan 2024
+
+FUNCTIONAL DESCRIPTION
+
+Figure 3-1: Illustration of system architecture
+
+3.1
+
+Description of the system
+
+Each daughter card is slotted into a connector on the backplane of the PDM device. When
+the daughter card is inserted, it is automatically assigned an address by the connector, by
+means of a specific set of shorted or open pins. This ID is called “Slot-ID”. The Slot-ID belongs
+to the card slot, the daughter card occupies, and the daughter card only has it as long as it is
+plugged into a specific slot.
+The same connector provides power and a set of communication interfaces from the
+Controller card of the PDM unit to the daughter card. Each daughter card houses a “Brain
+Card”. The brain card is a detachable MCU with all the required support components around
+it.
+A full interface list between the CCB and the DCB can be found in [DDD-003].
+The remaining sections of the document will exclusively focus on the protocol employed on
+the dedicated UART connections between the controller card and individual daughter cards.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+3.2
+
+DOC-RO2200-001-ROV
+
+UART Protocol Interface Description
+
+Issue 1.0
+
+Page 9 of 13
+
+9 Jan 2024
+
+Description of the UART protocol
+
+The UART connection of each daughter cards is full duplex, meaning there is a dedicated TX
+and RX line to each DCB from the CCB. The daughter cards can simultaneously provide a
+data stream and receive new commands.
+For the purposes of this document:
+• Communication originated by the CCB and received by the DCB will be called
+“Commands”
+• Communication originated by the DCB and received by the CCB will be called
+"Responses”
+Commands and responses are always sent MSB first. Packets are always sent in the byte
+order as they appear in the specific protocol definition excel table read from left to write.
+
+3.2.1
+
+UART protocol setup
+
+Each message or “packet” on the UART line consists of 16 characters. The most important
+settings for the UART connection are recorded in Table 3-1. The UART connection is aiming
+to rely on standard UART infrastructure as much as possible.
+Property
+Baud rate
+
+Value
+921600
+
+Parity bit
+
+None
+
+Data Bits per character
+
+8
+
+Stop Bits
+Packet size
+
+1
+16 characters
+Table 3-1: UART Properties
+
+3.2.2
+
+Commands
+
+The UART protocol is intended to contain a dedicated set of commands for each type of DC,
+the command structure however is universal across all types of DC-s.
+
+Size
+
+CMD ID
+(HEX)
+
+Info
+
+Arg 0
+
+Arg 1
+
+Arg 2
+
+Arg 3
+
+1 char
+
+1 char
+
+4 char
+
+4 char
+
+4 char
+
+2 char
+
+Description Unique ID Flag for timed
+Command Command Command Command
+for the
+commands, DNC Specific
+Specific
+Specific
+Specific
+command
+meaning meaning meaning meaning
+Figure 3-2: General composition of a command
+The full command list of each DC is described in a dedicated excel sheet per card. For the
+purposes of this document, an example can be seen below:
+CMD
+(HEX)
+
+ID Info
+
+0x1A
+
+0x0
+
+Arg 0
+
+Arg 1
+
+Arg 2
+
+Arg 3
+
+Threshold mA
+
+Gracetime
+Cnt
+
+Gracetime
+Timebase
+
+NA
+
+Table 3-2: Detailed data structure of an example command
+CMD: 0x1A has the command name: setSLPOverCurrentPos0Threshold
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-001-ROV
+
+UART Protocol Interface Description
+
+Issue 1.0
+
+Page 10 of 13
+
+9 Jan 2024
+
+• Command names are only relevant for the operator, as the embedded device (DC)
+identifies commands by their unique ID.
+Nr. Arguments is an 8bit variable with the following distribution:
+7 (MSB)
+
+6
+
+5
+
+4
+
+3
+
+2
+
+1
+
+0 (LSB)
+
+DNC
+
+DNC
+
+DNC
+
+DNC
+
+DNC
+
+DNC
+
+DNC
+
+Timed
+Command
+
+Table 3-3: Detailed overview of the of the Info field
+Bit 0 contains a flag, weather a command is “timed” (1) or not(0)
+Arg 1 – Arg 7 Do not care fields. These bits are not assigned any significance at the moment.
+Each command is buffered and forwarded to a command interpreter on the DBC-MCU
+through DMA. Regular commands execute at the moment of reception from the DMA buffer.
+
+3.2.3
+
+Timed Commands
+
+Some commands are “timed commands” meaning their time of execution is not the moment
+of reception. These commands have in argument 0 and 1 a description of when the intended
+execution time is.
+When the DC-brain card receives a timed command, it puts the command into a queue,
+where the first command in the que is the next to execute, the second one is the second to
+execute and so on, based on their “execution time” parameter. The DC-brain also sets a timer
+interrupt to the intended execution time of the next command, at which time, the command
+will be placed in the incoming command buffer and executed regularly.
+An example of a timed command structure from the SLP30 specific command list:
+CMD
+(HEX)
+
+ID Info
+
+0x56
+
+0x1
+
+Arg 0
+
+Arg 1
+
+Arg 2
+
+Arg 3
+
+Timestamp PPS
+
+Timestamp
+Subdivide
+
+DNC
+
+DNC
+
+Table 3-4: Data structure of an example timed command
+CMD: 0x56 has the command name: TimedGalvanicIsolationRelaysClose
+• Command names are only relevant for the operator, as the embedded device (DC)
+identifies commands by their unique ID.
+Nr. Arguments is an 8bit variable with the following distribution:
+7 (MSB)
+
+6
+
+5
+
+4
+
+3
+
+2
+
+1
+
+0 (LSB)
+
+DNC
+
+DNC
+
+DNC
+
+DNC
+
+DNC
+
+DNC
+
+DNC
+
+Timed
+command
+
+Table 3-5: Detailed overview of the of the Info field
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-001-ROV
+
+UART Protocol Interface Description
+
+Issue 1.0
+
+Page 11 of 13
+
+9 Jan 2024
+
+More detailed information about the timing scheme of individual daughter cards can be
+found in [DDD-004]. The interpretation of the intended execution time is according to the
+following table:
+Arg 0 (4 character)
+
+Arg 1 (4 character)
+
+PPS counter target
+count
+
+Sub-tick counter
+target count
+
+Table 3-6: Command timing information
+
+3.2.4
+
+Responses
+
+The DC-brain is expected to respond to commands with “Responses”. The responses follow
+a similar structure to commands. Each response is identified by an 8bit unique ID, and the
+exact functionality assigned to the given response ID is described in the same card specific
+UART protocol definition table as the commands are. For the purposes of this document, an
+example response is analysed from the SLP30 response table.
+
+RSP ID
+(HEX)
+
+Payload
+
+Size
+1 character 15 characters
+Description Unique ID Payload for a
+for the
+given response
+command
+Figure 3-3: General composition of a command
+
+RSP
+ID
+MSB
+(HEX) ADC
+0x11
+
+Payload
+LSB
+ADC
+
+PPS 3 PPS
+(MSB) 2
+
+DATA DATA TIME
+
+PPS
+1
+
+PPS 0 SUB 3 SUB
+(LSB) (MSB) 2
+
+TIME TIME TIME
+
+TIME
+
+SUB
+1
+
+SUB DNC DNC DNC DNC DNC
+0
+(LSB)
+
+TIME TIME TIME
+
+DNC DNC DNC DNC DNC
+
+Table 3-7: Example response with timestamp
+Each response after reception is saved in a pre-determined memory location by the FPGA
+fabric of the controller card. This action happens without the embedded Linux systems
+intervention. When the Linux system wishes to access data at a later point, it retrieves the
+responses from their appropriate memory address.
+
+3.2.5
+
+Data dumps
+
+The daughter cards are designed to collect measurement data in a circular buffer, and at a
+pre-determined trigger event, dump the data to the controller card. The trigger event and
+the measurement channel to be dumped can be configured.
+To conserve bandwidth, the dumped data points are not individually time-stamped. Each
+data dump is accompanied by a sampling settings indicator, which contains the sampling
+frequency settings and trigger context. Beyond this, an index indicator and timestamp of the
+index is also individually saved for all data dumps.
+All data dumps share a trigger time stamp. The trigger time is noted down in its own memory
+location.
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-001-ROV
+
+UART Protocol Interface Description
+
+Issue 1.0
+
+Page 12 of 13
+
+9 Jan 2024
+
+Similar to the handling of individual responses, data dumps are saved to dedicated memory
+locations within the FPGA fabric without necessary intervention from the Linux system.
+Below the structure of an example data dump can be seen from the SLP30 protocol
+definition.
+RSP ID
+(HEX)
+
+Payload
+
+Size
+8 bits
+200000 bytes
+Description Unique ID Payload for a
+for the
+given data
+dump
+dump
+response
+Table 3-8: Data dump structure
+RSP
+Payload
+ID
+IND 3 IND 2 IND 1 IND 0 PPS 3 PPS PPS PPS 0 SUB 3 SUB SUB SUB 0
+(HEX) (MSB)
+(LSB) (MSB) 2
+1
+(LSB) (MSB) 2
+1
+(LSB)
+0x29 INDEX INDEX INDEX INDEX TIME TIME TIME TIME TIME TIME TIME TIME
+Table 3-9: Detailed data structure of the Index and timestamp information regarding data
+dumps
+RSP
+ID
+DNC
+(HEX)
+0x28
+
+DNC
+
+Payload
+Trigger
+MSB
+DATA
+
+Trigger Freq CNT Frep
+LSB
+Presc
+DATA
+Gracetime Gracetime
+Cnt
+Timebase
+
+Table 3-10: Detailed data structure of the trigger context and sampling speed information
+
+3.2.6
+
+Modification flags
+
+Since there are no timing constraints on the Linux system to access the buffered data coming
+in through the daughter card UART channels, a value modification flag is needed.
+The modification flag is calculated by the FPGA fabric based on the RSP ID of the responses
+received. The method of calculation for the modification flag:
+(unsigned long)Temp=(unsigned long)1<<(RSP_ID);
+(unsigned long)ModifFlag=(unsigned long)ModifFlag|(unsigned long)Temp;
+
+Industrial
+
+© Rovsing 2024
+
+PDM Development
+
+DOC-RO2200-001-ROV
+
+UART Protocol Interface Description
+
+Issue 1.0
+
+Page 13 of 13
+
+9 Jan 2024
+
+End of Document
+
+Industrial
+
+© Rovsing 2024
+
+

@@ -1,0 +1,837 @@
+DEV-SPC-ROV-GSE-0001
+Issue 1.0
+26 Jan 2023
+
+PDM Development
+Power/Discrete Mainframe
+Controller Card General Specifications
+
+Prepared by
+Adam Kiss
+Hardware Engineer
+
+Checked by
+Reviewer
+Position
+Unauthorised distribution, dissemination or disclosure not allowed
+
+© Rovsing A/S 2023
+The copyright in this document is vested in Rovsing A/S.
+
+www.rovsing.dk
+
+Ejby Industrivej 34-38
+
+Phone:
+
+Fax:
+
+VAT No.:
+
+info@rovsing.dk
+
+DK-2600 Glostrup
+
++45 44 200 800
+
++45 44 200 801
+
+DK-16 13 90 84
+
+PDM Development
+
+DEV-SPC-ROV-GSE-0001
+
+Controller Card General
+Specifications
+
+Issue 1.0
+26 Jan 2023
+
+Page 2 of 14
+
+Document attributes
+Customer
+Rovsing AS
+File name
+
+DEV-SPC-ROV-GSE-0001 - PDM CC Specifications.docx
+
+Document change log
+Issue
+
+Date
+
+Modified sections
+
+1.0
+
+10 Maj 2023
+
+All
+
+Industrial
+
+Description of change
+
+© Rovsing 2023
+
+PDM Development
+Controller Card General
+Specifications
+
+DEV-SPC-ROV-GSE-0001
+Issue 1.0
+26 Jan 2023
+
+Page 3 of 14
+
+Table of contents
+1
+
+2
+
+3
+
+INTRODUCTION ...............................................................................................................5
+1.1
+
+Purpose and scope .......................................................................................................... 5
+
+1.2
+
+Document Outline ........................................................................................................... 5
+
+DOCUMENTS AND DEFINITIONS ....................................................................................6
+2.1
+
+Applicable Documents .................................................................................................... 6
+
+2.2
+
+Reference Documents .................................................................................................... 6
+
+2.3
+
+Normative Documents .................................................................................................... 6
+
+2.4
+
+Acronyms and abbreviations ......................................................................................... 7
+
+FUNCTIONAL DESCRIPTION............................................................................................8
+3.1
+
+4
+
+List of functions........................................................... Error! Bookmark not defined.
+
+GENERAL REQUIREMENTS ..............................................................................................9
+4.1
+
+4.2
+
+Mechanical requirements ............................................................................................... 9
+4.1.1
+
+PDM-CC-1 PCB size and mounting holes ........................................................ 9
+
+4.1.2
+
+PDM-CC-2 Build height ...................................................................................... 9
+
+4.1.3
+
+PDM-CC-3 Connector definitions ..................................................................... 9
+
+4.1.4
+
+PDM-CC-4 Connector placements ................................................................... 9
+
+4.1.5
+
+PDM-CC-5 Fiducials ............................................................................................ 9
+
+Electrical Requirements ................................................................................................ 10
+4.2.1
+
+PDM-CC-6 Power supply ................................................................................. 10
+
+4.2.2
+
+PDM-CC-7 Safety link external........................................................................ 10
+
+4.2.3
+
+PDM-CC-24 Safety link internal ...................................................................... 10
+
+4.2.4
+
+PDM-CC-8 Display interface ............................................................................ 10
+
+4.2.5
+
+PDM-CC-9 Front control interface.................................................................. 10
+
+4.2.6
+
+PDM-CC-10 Per card interfaces ...................................................................... 10
+
+4.2.7
+
+PDM-CC-11 Shared SPI Bus ............................................................................ 10
+
+4.2.8
+
+PDM-CC-12 Shared I2C Buses ........................................................................ 11
+
+4.2.9
+
+PDM-CC-13 PIO Buses ..................................................................................... 11
+
+4.2.10 PDM-CC-14 Fan control ................................................................................... 11
+4.2.11 PDM-CC-15 PPS pulses .................................................................................... 11
+4.2.12 PDM-CC-16 SD card ......................................................................................... 11
+4.2.13 PDM-CC-17 JTAG programmer ....................................................................... 11
+4.2.14 PDM-CC-18 Controller SOM ............................................................................ 11
+4.2.15 PDM-CC-19 Test points and 0R resistors ...................................................... 11
+4.3
+
+Functional Requirements ............................................................................................. 12
+4.3.1
+
+Industrial
+
+PDM-CC-20 Communication to Rovsing High-Level controller .................. 12
+
+© Rovsing 2023
+
+PDM Development
+Controller Card General
+Specifications
+
+DEV-SPC-ROV-GSE-0001
+Issue 1.0
+26 Jan 2023
+
+Page 4 of 14
+
+4.3.2
+
+PDM-CC-21 Overall system control ............................................................... 12
+
+4.3.3
+
+PDM-CC-22 PDM UART protocol .................................................................... 12
+
+4.3.4
+
+PDM-CC-23 Safety link interconnections ...................................................... 12
+
+APPENDIX A
+A.1
+
+APPENDIX ............................................ ERROR! BOOKMARK NOT DEFINED.
+
+13
+
+Table of tables
+Table 2-1: List of Applicable Documents ........................................................................................ 6
+Table 2-2: List of Reference Documents ........................................................................................ 6
+Table 2-3: List of Normative Documents ........................................................................................ 6
+Table 2-4: List of Acronyms and Abbreviations ............................................................................. 7
+
+Table of figures
+No table of figures entries found.
+
+Industrial
+
+© Rovsing 2023
+
+PDM Development
+Controller Card General
+Specifications
+
+DEV-SPC-ROV-GSE-0001
+Issue 1.0
+26 Jan 2023
+
+Page 5 of 14
+
+1
+
+INTRODUCTION
+
+1.1
+
+Purpose and scope
+
+This document contains requirements for the Power Discrete Mainframe (PDM) Controller
+card. The controller card is connected to the backplane of the PDM and is tasked with
+coordinating the operation of the daughter cards (DC) slotted into the system. The PDM is
+capable of housing 16 daughter cards.
+
+1.2
+
+Document Outline
+
+The document is going through different requirements set towards the Controller card for
+the PDM. Requirements towards the Backplane, Daughter cards or Power card are not listed
+in this document.
+
+Industrial
+
+© Rovsing 2023
+
+PDM Development
+
+DEV-SPC-ROV-GSE-0001
+
+Controller Card General
+Specifications
+
+Issue 1.0
+26 Jan 2023
+
+Page 6 of 14
+
+2
+
+DOCUMENTS AND DEFINITIONS
+
+The following sections list the applicable, reference and normative documents that relate to
+this document. These are set out as follows:
+Applicable documents: Documents provided by the customer which form the basis of
+the present document, i.e. the present document explains how the Rovsing design,
+implementation and/or processes respond to the requirements established through the
+applicable documents.
+Reference documents: Documents delivered by Rovsing and which are referred to in the
+present document.
+Normative documents: Regulations, laws, or industry standards applicable to the
+Rovsing delivery and relevant to the present document.
+
+2.1
+
+Applicable Documents
+
+Reference Document Reference
+[ICD-001]
+
+DOC-RO2200-001-ROV
+
+Issue Document Title
+1.0
+
+UART Protocol Interface Description
+
+Table 2-1: List of Applicable Documents
+
+2.2
+
+Reference Documents
+
+Reference Document Reference
+
+Issue Document Title
+
+Table 2-2: List of Reference Documents
+
+2.3
+
+Normative Documents
+
+Reference Document Reference
+
+Issue Document Title
+
+Table 2-3: List of Normative Documents
+
+Industrial
+
+© Rovsing 2023
+
+PDM Development
+Controller Card General
+Specifications
+
+DEV-SPC-ROV-GSE-0001
+Issue 1.0
+26 Jan 2023
+
+Page 7 of 14
+
+2.4
+Term
+A
+AS
+B
+C
+CAD
+CC
+CLK
+D
+DC
+E
+F
+FPGA
+G
+GND
+GPIO
+GSE
+H
+I
+J
+K
+L
+M
+MCU
+MISO
+MOSI
+N
+O
+P
+PCB
+PDM
+PIO
+PPS
+Q
+R
+ROV
+RX
+S
+SL
+SOM
+SPI
+T
+TX
+U
+UART
+V
+W
+X
+Y
+
+Acronyms and abbreviations
+Definition
+Not Found
+
+Computer Aided Design
+Contact Closure
+Clock (usually in the context of a communication bus)
+Direct Current
+
+Field Programmable Gate Array
+Ground
+General Purpose IO
+Ground Support Equipment
+
+Microcontroller Unit
+Master-In Slave-Out
+Master-Out Slave-In
+
+Printed Circuit Board
+Power Distribution Module
+Parallel IO
+Pulse Per Second
+
+Rovsing
+Receiver
+Safety Link
+System on a Module
+Serial Peripherial Interface
+Transmitter
+Universal Asynchronous Receiver Transmitter
+
+Table 2-4: List of Acronyms and Abbreviations
+
+Industrial
+
+© Rovsing 2023
+
+PDM Development
+Controller Card General
+Specifications
+
+DEV-SPC-ROV-GSE-0001
+Issue 1.0
+26 Jan 2023
+
+Page 8 of 14
+
+3
+
+FUNCTIONAL DESCRIPTION
+
+Figure 3-1: CAD rendering of the early design of the PDM
+
+Figure 3-2: PDM cad rendering from the back, with the location of the controller card marked
+
+Industrial
+
+© Rovsing 2023
+
+PDM Development
+Controller Card General
+Specifications
+
+DEV-SPC-ROV-GSE-0001
+Issue 1.0
+26 Jan 2023
+
+Page 9 of 14
+
+4
+
+GENERAL REQUIREMENTS
+
+4.1
+
+Mechanical requirements
+
+4.1.1
+
+PDM-CC-1 PCB size and mounting holes
+
+The Controller card shall conform to the standard Eurocard PCB size of 100mmx340mm.
+Mounting holes are placed such, as to allow the mounting of relevant connectors and
+metalwork. An illustration can be found on Figure 4-1.
+The PCB shall have a 3mm wide keep out area at both long edges.
+
+Figure 4-1: PCB size requirements
+
+4.1.2
+
+PDM-CC-2 Build height
+
+The PCB assembly including the metalwork shall not be wider than 40.64mm (8HP). The
+maximum build height on either side of the PCB (1.6mm assumed):
+TOP:
+
+36 mm
+
+Bottom:
+
+2.2 mm
+
+4.1.3
+
+PDM-CC-3 Connector definitions
+
+Connection to the backplane shall be made using a male DIN 41612 160 pin connector.
+The card shall have a PCB mount ethernet connector 0826-1G1T-23-F or equivalent.
+The card shall have three DE-9S connectors
+
+4.1.4
+
+PDM-CC-4 Connector placements
+
+Connectors are exclusively placed on the top side of the PCB.
+All connectors are placed on the short edges of the PCB. The side facing the backplane is
+called “front” while the side facing away is called “rear”
+The Ethernet connector shall be PCB mounted, located on the rear edge protruding out to
+the card metalwork
+The DE-9S connectors shall be mounted on the rear edge, protruding out to the card
+metalwork
+
+4.1.5
+
+PDM-CC-5 Fiducials
+
+The PCB shall have at least three fiducials on both top and bottom side.
+
+Industrial
+
+© Rovsing 2023
+
+PDM Development
+Controller Card General
+Specifications
+
+DEV-SPC-ROV-GSE-0001
+Issue 1.0
+26 Jan 2023
+
+Page 10 of 14
+
+4.2
+
+Electrical Requirements
+
+4.2.1
+
+PDM-CC-6 Power supply
+
+The Controller card is supplied using 12V and 5V DC, with a maximum power consumption
+of 10 Watts. All other necessary voltages shall be locally generated.
+
+4.2.2
+
+PDM-CC-7 Safety link external
+
+The controller card shall expose two independent and galvanically isolated safety link
+interfaces. The safety links have the following signal list:
+Inhibit+, Inhibit-, Trigger+, Trigger-, 12V, 12V_Return
+Safety link is considered “triggered”, when the voltage between Inhibit+ and Inhibit- is less
+than 4 Volts. The safety link shall not trigger as long as the voltage difference between the
+inhibit lines is greater than 8 Volts.
+The safety link interfaces must be floating, with an isolation barrier in place to withstand
+1500V DC for 1 minute.
+
+4.2.3
+
+PDM-CC-24 Safety link internal
+
+The controller card shall support two independent internal safety link domains. The safety
+link domains are internal GND referenced at the controller card, with a nominal 12V voltage.
+The safety link is considered triggered, when the voltage between SL_1 line and GND is less
+than 4V. The safety link shall not trigger, when the voltage of SL_1 is greater than 8V.
+
+4.2.4
+
+PDM-CC-8 Display interface
+
+The controller card shall have an UART based display control interface. The display control
+interface shall be exposed on the rear edge of the controller card.
+
+4.2.5
+
+PDM-CC-9 Front control interface
+
+The controller card shall provide an I2C based interface through the backplane connector, to
+control user interface amenities on the front of the PDM.
+
+4.2.6
+
+PDM-CC-10 Per card interfaces
+
+The controller card shall provide a single ended, 3V3-5V compatible UART (RX-TX) interface
+and two 3V3-5V compatible GPIO-s for each connected daughter card. (Maximum 16 cards)
+These interfaces shall be provided through the backplane.
+
+4.2.7
+
+PDM-CC-11 Shared SPI Bus
+
+The Controller Card shall provide an SPI bus towards the backplane. The SPI bus is shared
+by all the daughter cards in the mainframe. The SPI bus shall have 3V3 as nominal voltage
+and it shall contain the following lines:
+MOSI, MISO, CLK
+The chip-select line for the SPI line shall be an 8 pin wide parallel bus, where 4 bits are the
+“card select” address and 4 bits are the “chip select” within the card select. The decoding
+circuitry for the chip select scheme shall be located on the individual daughter cards.
+
+Industrial
+
+© Rovsing 2023
+
+PDM Development
+
+DEV-SPC-ROV-GSE-0001
+
+Controller Card General
+Specifications
+
+Issue 1.0
+26 Jan 2023
+
+Page 11 of 14
+
+4.2.8
+
+PDM-CC-12 Shared I2C Buses
+
+The Controller Card shall expose two I2C busses towards the backplane through the
+backplane connector. The Busses are 3V3 nominal voltage and are shared by all the daughter
+cards in the mainframe. The I2C Busses shall have the following members:
+SDA, SCL
+
+4.2.9
+
+PDM-CC-13 PIO Buses
+
+The Controller card shall expose 16 independent GPIO pins towards the backplane through
+the backplane connectors. The GPIO pins must support many to many communications and
+thus needs to be receiver and open collector driver combined.
+
+4.2.10
+
+PDM-CC-14 Fan control
+
+The Controller Card shall expose two GPIO-s towards the backplane through the backplane
+connector, dedicated for driving a fan in a closed loop speed control. The fan control pins
+shall facilitate a “Control” and a “Tacho” pin. The pins shall be 3V3-5V or open collector (12V
+tolerant) compatible, depending on configuration.
+Pulldown for Fan_C signal shall be 1k.
+
+4.2.11
+
+PDM-CC-15 PPS pulses
+
+The Controller card shall have amenities to receive a single channel of PPS pulses and
+provide a single channel of PPS pulses through the backplane connector, towards the
+backplane. The pulses are 3V3-5V compatible, 50Ω terminated signals.
+
+4.2.12
+
+PDM-CC-16 SD card
+
+The Controller card shall have amenities to host a micro-SD form factor SD card.
+The SD card socket retention mechanism shall be mechanically latching.
+The card socket shall be outfitted with “Card present” detection and “Power Enable”
+functionality.
+
+4.2.13
+
+PDM-CC-17 JTAG programmer
+
+The Controller card shall have amenities to connect a JTAG based programmer and flash
+embedded code/FPGA image to the on-board SOM controller.
+
+4.2.14
+
+PDM-CC-18 Controller SOM
+
+The Controller card shall host an Enclustra Mars ZX3 Zynq module through a SoDIMM-200
+connector as the central controller for the PDM device. All communication and control
+functionalities shall be run by the Mars ZX3 without an additional MCU on board the
+controller card.
+
+4.2.15
+
+PDM-CC-19 Test points and 0R resistors
+
+The Controller Card shall have test points on “signals of interest” to aid development efforts.
+Test points on power lines shall have series protection resistors to prevent damage to
+unintentionally shorted lines.
+The Controller Card shall have 0R resistors in series on “signals of interest” and power lines,
+to facilitate complete isolation for parts of the circuit. This is done to aid development and
+debugging efforts.
+
+Industrial
+
+© Rovsing 2023
+
+PDM Development
+
+DEV-SPC-ROV-GSE-0001
+
+Controller Card General
+Specifications
+
+Issue 1.0
+26 Jan 2023
+
+Page 12 of 14
+
+4.3
+4.3.1
+
+Functional Requirements
+PDM-CC-20 Communication to Rovsing High-Level controller
+
+The Controller card shall be able to communicate (Receive telecommands and send
+telemetry) to the Rovsing central controller system through Ethernet, using Standard
+Commands for Programmable Instruments (SCPI-99) protocol.
+
+4.3.2
+
+PDM-CC-21 Overall system control
+
+The controller card shall be able to send telecommands to and receive telemetry from the
+daughter cards (DC).
+The control of the daughter cards can happen through dedicated UART lines, one per each
+DC. Besides the dedicate UART lines, shared busses (SPI, I2C_1, I2C_2, PIO) are available for
+device discovery and thermal control.
+
+4.3.3
+
+PDM-CC-22 PDM UART protocol
+
+Communication through the dedicated UART lines happens using the Rovsing proprietary
+PDM protocol. The protocol is described in detail by [ICD-001]. Available commands to
+individual cards are specified by a card specific command and response table.
+Note: The same command code across different cards can have different actions associated
+to it.
+
+4.3.4
+
+PDM-CC-23 Safety link interconnections
+
+The controller card shall have configurable interconnections between different safety link
+triggers going from the external sources towards the internal safety links of the PDM module.
+Interconnection between any external trigger to any internal line shall be possible.
+Interconnection between any internal safety link inhibits to any external inhibits shall be
+possible. All interconnections shall be software configurable.
+The safety link trigger matrix shall have 0R resistors placed in such a manner, that the matrix
+is directly bypassable, connecting External SL 1 to Internal SL 1, External SL 2 to Internal SL
+2.
+
+Figure 4-2: Safety link interconnection matrix
+
+Industrial
+
+© Rovsing 2023
+
+PDM Development
+Controller Card General
+Specifications
+
+DEV-SPC-ROV-GSE-0001
+Issue 1.0
+26 Jan 2023
+
+Page 13 of 14
+
+4.3.5
+
+PDM-CC-25 Interrogatable safety link
+
+The safety link interface shall be able to latch the error source and propagate the SL event
+through a one-shot trigger to the internal and external safety links.
+The safety link shall be interrogatable, making it possible to resolve what condition triggered
+the safety link event.
+
+4.3.6
+
+PDM-CC-23 Hardware Watch-Dog
+
+The Controller card shall have a hardware watch dog attached to the safety link matrix, which
+can propagate a safety link event, when the Mars ZX3 SOM on board software proves
+unresponsive.
+
+4.3.7
+
+PDM-CC-24 Watch-Dog Pulse train
+
+Software unresponsiveness shall be detected within 5 ms, through the absence of a pulse
+train. The watchdog pulse train shall be representative of the state of the control software
+execution. (Maning a hanging software shall not be able to produce a valid pulse-train.)
+
+4.3.8
+
+PDM-CC-25 Supply line monitoring
+
+The Controller card shall be capable of monitoring the 12V and 5V supply line on the
+backplane, determining if an undervoltage condition is present.
+
+Industrial
+
+© Rovsing 2023
+
+PDM Development
+Controller Card General
+Specifications
+
+DEV-SPC-ROV-GSE-0001
+Issue 1.0
+26 Jan 2023
+
+Page 14 of 14
+
+End of Document
+
+Industrial
+
+© Rovsing 2023
+
+
